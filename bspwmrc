@@ -2,7 +2,6 @@
 
 # Autostart applications
 sxhkd & # Hotkey stuff
-urxvt & # 1 terminal
 pulseaudio & # pulse audio server
 compton & # compositor
 panel &
@@ -23,8 +22,9 @@ WP_FINAL="$WP_TYPE $WP_FOLDER/$M1_WP $WP_TYPE $WP_FOLDER/$M2_WP $WP_FOLDER/$M3_W
 xrandr --output DP-0 --primary --mode 2560x1440 --pos 3840x720 --rotate normal --output DP-1 --off --output HDMI-0 --mode 1920x1080 --pos 6400x1080 --rotate normal --output DP-2 --off --output DP-3 --off --output DP-4 --mode 3840x2160 --pos 0x0 --rotate normal --output DP-5 --off --output USB-C-0 --off
 
 # bspwm monitor layouts
-bspc monitor DP-0 -d I II III IV V 
-bspc monitor HDMI-0 -d VI VII VIII IX X
+bspc monitor DP-4 -d I II III
+bspc monitor DP-0 -d IV V VI VII
+bspc monitor HDMI-0 -d VIII IX X
 
 bspc config border_width 1
 bspc config window_gap 2
