@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# Autostart applications
+sxhkd & # Hotkey stuff
+urxvt & # 1 terminal
+pulseaudio & # pulse audio server
+compton & # compositor
+panel &
+
+
+# Wallpaper settings
+# WP_TYPE can be any type of bg that feh supports. --bg-fill, --bg-center, --bg-scale --bg-max --bg-tile
+WP_TYPE=--bg-center
+WP_FOLDER=/home/rathma/Pictures/wallpapers
+M3_WP=ylia.jpg
+M1_WP=rem.jpg
+M2_WP=whitebg.jpg
+WP_FINAL="$WP_TYPE $WP_FOLDER/$M1_WP $WP_TYPE $WP_FOLDER/$M2_WP $WP_FOLDER/$M3_WP"
+
+# Screen/Display Settings
+
+#Monitor layout, generated from arandr
+xrandr --output DP-0 --primary --mode 2560x1440 --pos 3840x720 --rotate normal --output DP-1 --off --output HDMI-0 --mode 1920x1080 --pos 6400x1080 --rotate normal --output DP-2 --off --output DP-3 --off --output DP-4 --mode 3840x2160 --pos 0x0 --rotate normal --output DP-5 --off --output USB-C-0 --off
+
+# bspwm monitor layouts
+bspc monitor DP-0 -d I II III IV V 
+bspc monitor HDMI-0 -d VI VII VIII IX X
+
+bspc config border_width 1
+bspc config window_gap 2
+
+bspc config split_ratio 0.52
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+
+# Setting our wallpaper. Needs to be done after screen management. 
+feh $WP_FINAL
