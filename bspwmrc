@@ -7,10 +7,14 @@ compton & # compositor
 panel &
 
 
+# Locations of things
+
+DOT_FOLDER=/home/rathma/.dotfiles
+WP_FOLDER=/usr/share/wallpapers
+
 # Wallpaper settings
 # WP_TYPE can be any type of bg that feh supports. --bg-fill, --bg-center, --bg-scale --bg-max --bg-tile
 WP_TYPE=--bg-center
-WP_FOLDER=/home/rathma/Pictures/wallpapers
 M3_WP=ylia.jpg
 M1_WP=rem.jpg
 M2_WP=whitebg.jpg
@@ -34,4 +38,6 @@ bspc config borderless_monocle true
 bspc config gapless_monocle true
 
 # Setting our wallpaper. Needs to be done after screen management. 
+xrdb -merge "$DOT_FOLDER/Xresources"
 feh $WP_FINAL
+xsetroot -cursor_name left_ptr
