@@ -10,6 +10,7 @@
 "     - "Plug 'junegunn/fzf'
 "       to 
 "     - "Plug 'junegunn/fzf', {'dir' : '~/.fzf', 'do' : './install --all' }
+"  3. ripgrep
 " 
 " Run this to install the plugins
 " :PlugInstall
@@ -22,23 +23,29 @@ set number
 call plug#begin(stdpath('data').'/plugged')
 """ Version Control Software Plugins 
 Plug 'tpope/vim-fugitive' " A git plugin
-"Plug 'junegunn/gv.vim' " Frontend for the git plugin
-Plug 'rbong/vim-flog' " Another frontend for git plugin
+Plug 'junegunn/gv.vim' " Git commit browser. Depends on fugitive
+Plug 'airblade/vim-gitgutter' " Git diff browser in the gutter
+
+"Plug 'rbong/vim-flog' " Another frontend for git plugin
 
 """ File & Buffer Management Plugins
 Plug 'scrooloose/nerdtree' " Tree navigation
-Plug 'xuyuanp/nerdtree-git-plugin' " Git status in the nerdtree
+Plug 'xuyuanp/nerdtree-git-plugin' " Git status in the nerdtree doesn't seem to be working.
 Plug 'junegunn/fzf' " Fuzzy finder support
 Plug 'junegunn/fzf.vim' " vim frontend to fzf
 Plug 'BurntSushi/ripgrep' " powerful recursive regex tool
 " Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, tag, mru finder
+"Plug 'wincent/command-t' " File stuff
 "
 " UI Tweaks
 Plug 'vim-airline/vim-airline' " Fancy status bar
 
 
 " Editing tweaks
-Plug 'nathanaelkane/vim-indent-guides' " Indentation visual bars
+" Plug 'nathanaelkane/vim-indent-guides' " Indentation visual bars. I dislike this one due to the harsh lines. It doesn't really fit in any colorscheme. 
+Plug 'yggdroot/indentline' " Softer indentation
+Plug 'tpope/vim-surround' " Makes surrounding things with quotes and stuff easier.
+
 Plug 'ap/vim-css-color' " css color previewer
 Plug 'lambdalisue/suda.vim' " Sudo support for nvim
 Plug 'scrooloose/nerdcommenter' " Makes commenting simpler
@@ -70,11 +77,18 @@ let g:NERDTreeIndicatorMapCustom = {
   \ "Unknown"   : "?"
   \ }
 
-" Indentation guide setup
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors = 0
-hi IndentGuidesOdd ctermbg=grey
-hi IndentGuidesEven ctermbg=lightgrey
+
+" Indentline setup options. Going with default for now
+"let g:indentLine_char = 'c'
+"let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+"let g:indentLine_conceallevel=2
+"let g:indentLine_setConceal=0
+
+" Old indentation setup
+"let g:indent_guides_enable_on_vim_startup = 1
+"let g:indent_guides_auto_colors = 0
+"hi IndentGuidesOdd ctermbg=grey
+"hi IndentGuidesEven ctermbg=lightgrey
 
 
 " Let's create some leader key bindings
@@ -108,6 +122,22 @@ nnoremap <leader>8 8gt
 " File navigation
 nnoremap <leader>ft :NERDTreeToggle<CR>
 nnoremap <leader>ff :Files 
+
+" Git Control with Fugitive
+nnoremap <leader>gf :Gfetch<CR>
+nnoremap <leader>gp :Gpull<CR>
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gm :Gmerge<CR>
+nnoremap <leader>gc :Gcommit<CR>
+
+" Git gutter settings
+let g:gitgutter_max_signs = 500 " Default value. 
+set updatetime=100
+
+" Open the config
+nnoremap <leader>ec :e $MYVIMRC<CR>
+
+
 "nnoremap <leader>ff :CtrlP c<CR>
 "let g:ctrlp_working_path_mode = 'cra'
 "if executable('rg')
@@ -128,6 +158,12 @@ nnoremap <leader>ff :Files
 " - Relative numberlines
 " Mass indentation
 "
+" Maybe plugins
+" Startify
+" command-t
+" devicons
+" Nerdtree git
+" ctrlp vs fzf
 " Sudo editing macro
 nnoremap <leader>fS :w suda://%<CR> " Saves current file as sudo
 nnoremap <leader>fE :e suda://%<CR> " Opens current file for sudo writing
