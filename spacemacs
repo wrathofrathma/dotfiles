@@ -52,7 +52,7 @@ values."
      (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      spotify
      floobits
-     ;; (shell :variables
+     ;;(shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
