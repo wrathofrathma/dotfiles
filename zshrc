@@ -6,6 +6,9 @@ ZSH_THEME=""
 
 # oh-my-zsh set up
 ZSH=$HOME/.oh-my-zsh/
+if [ ! -d $ZSH ]; then
+  mkdir $ZSH
+fi
 DISABLE_AUTO_UPDATE="true"
 plugins=(gradle git-extras sudo tmux)
 
