@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # Tmux settings
-#ZSH_TMUX_AUTOSTART="true"
+ZSH_TMUX_AUTOSTART="true"
 ZSH_THEME=""
 
 # oh-my-zsh set up
@@ -233,6 +233,7 @@ alias perms="stat -c '%A %a %n'"
 alias sudo="sudo "
 
 alias vim="nvim"
+alias emacs="emacsclient"
 ##
 # Functions
 #
