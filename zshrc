@@ -10,16 +10,20 @@ export WP_FOLDER=/usr/share/wallpapers
 ZSH=$HOME/.oh-my-zsh/
 
 # Oh-My-Zsh auto install stuff. 
-if [ ! -d $ZSH ]; then
-  # Assume oh-my-zsh isn't installed
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-  mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
-  rm "$ZSH/oh-my-zsh.sh"
-  ln -s $DOT_FOLDER/oh-my-zsh.sh $ZSH/oh-my-zsh.sh
-fi
+#if [ ! -d $ZSH ]; then
+#  # Assume oh-my-zsh isn't installed
+#  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+#  mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+#  rm "$ZSH/oh-my-zsh.sh"
+#  ln -s $DOT_FOLDER/oh-my-zsh.sh $ZSH/oh-my-zsh.sh
+#fi
 
 # Tmux settings
-ZSH_TMUX_AUTOSTART="true"
+if [ -n "$SSH_CONNECTION" ]; then
+  ZSH_TMUX_AUTOSTART="false"
+else
+  ZSH_TMUX_AUTOSTART="true"
+fi
 ZSH_THEME=""
 DISABLE_AUTO_UPDATE="true"
 plugins=(gradle git-extras sudo tmux)
@@ -143,7 +147,7 @@ alias egrep="egrep --color=auto"
 # make less accept color codes and re-output them
 alias less="less -R"
 alias pacman="pacman --color=always"
-alias yay="aurman --color always"
+alias yay="yay --color always"
 
 
 ##
