@@ -157,7 +157,7 @@ nnoremap <leader>ec :e $MYVIMRC<CR>
 
 " Application bindings 
 nnoremap <leader>at :terminal<CR>
-tnoremap <leader><Esc> <C-\><C-n> " Terminal binding to escape terminal
+tnoremap <A-q> <C-\><C-n> " Terminal binding to escape terminal
 
 " keys we need to implement
 " fuzzy file search
