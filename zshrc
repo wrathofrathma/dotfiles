@@ -1,20 +1,26 @@
 #!/bin/zsh
 
-# Tmux settings
-ZSH_TMUX_AUTOSTART="true"
-ZSH_THEME=""
 
-DOTFILEDIR=$HOME/.dotfiles
+# This is my zshrc. I suggest reading through all of the comments and editing path variables defined at the top. 
+# Feature & Plugin Overview 
 
-# oh-my-zsh set up
+# PATH Variables 
+export DOT_FOLDER=$HOME/.dotfiles 
+export WP_FOLDER=/usr/share/wallpapers
 ZSH=$HOME/.oh-my-zsh/
+
+# Oh-My-Zsh auto install stuff. 
 if [ ! -d $ZSH ]; then
   # Assume oh-my-zsh isn't installed
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
   rm "$ZSH/oh-my-zsh.sh"
-  ln -s $DOTFILEDIR/oh-my-zsh.sh $ZSH/oh-my-zsh.sh
+  ln -s $DOT_FOLDER/oh-my-zsh.sh $ZSH/oh-my-zsh.sh
 fi
+
+# Tmux settings
+ZSH_TMUX_AUTOSTART="true"
+ZSH_THEME=""
 DISABLE_AUTO_UPDATE="true"
 plugins=(gradle git-extras sudo tmux)
 
@@ -67,9 +73,6 @@ else
 	fi
 fi
 
-##
-# Environment variables
-#
 
 # basedir defaults, in case they're not already set up.
 # http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
@@ -140,7 +143,7 @@ alias egrep="egrep --color=auto"
 # make less accept color codes and re-output them
 alias less="less -R"
 alias pacman="pacman --color=always"
-alias aurman="aurman --color always"
+alias yay="aurman --color always"
 
 
 ##
