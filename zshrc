@@ -143,7 +143,7 @@ alias egrep="egrep --color=auto"
 # make less accept color codes and re-output them
 alias less="less -R"
 alias pacman="pacman --color=always"
-alias yay="aurman --color always"
+alias yay="yay --color always"
 
 
 ##
