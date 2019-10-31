@@ -7,8 +7,9 @@ super + Return
 	urxvt
 
 # program launcher
+# Checking the available themes might be worth. We're using sidebar right now, there is a dmenu style theme, and a lot of popup themes
 super + @space
-	rofi -combi-modi drun,window -theme solarized -font "hack 10" -show combi
+	rofi -combi-modi drun,window -theme sidebar -font "hack 10" -show combi
 
 # make sxhkd reload its configuration files:
 super + Escape
