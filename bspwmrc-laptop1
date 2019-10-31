@@ -19,7 +19,7 @@ fi
 # Autostart applications
 sxhkd & # Hotkey stuff
 pulseaudio & # pulse audio server
-
+compton &
 # Screen/Display Settings
 
 #Monitor layout, generated from arandr
