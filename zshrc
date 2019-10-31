@@ -4,10 +4,16 @@
 ZSH_TMUX_AUTOSTART="true"
 ZSH_THEME=""
 
+DOTFILEDIR=$HOME/.dotfiles
+
 # oh-my-zsh set up
 ZSH=$HOME/.oh-my-zsh/
 if [ ! -d $ZSH ]; then
-  mkdir $ZSH
+  # Assume oh-my-zsh isn't installed
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+  rm "$ZSH/oh-my-zsh.sh"
+  ln -s $DOTFILEDIR/oh-my-zsh.sh $ZSH/oh-my-zsh.sh
 fi
 DISABLE_AUTO_UPDATE="true"
 plugins=(gradle git-extras sudo tmux)
