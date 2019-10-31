@@ -27,7 +27,7 @@ set signcolumn=yes " Always display signcolumns
 set tabstop=2
 set shiftwidth=2
 set expandtab
-
+set updatetime=100
 
 call plug#begin(stdpath('data').'/plugged')
 """ Version Control Software Plugins 
@@ -52,7 +52,7 @@ Plug 'BurntSushi/ripgrep' " powerful recursive regex tool
 "
 " UI Tweaks
 Plug 'vim-airline/vim-airline' " Fancy status bar
-
+Plug 'liuchengxu/vim-which-key' " Pop up guidef or available hotkeys.
 
 " Editing tweaks
 " Plug 'nathanaelkane/vim-indent-guides' " Indentation visual bars. I dislike this one due to the harsh lines. It doesn't really fit in any colorscheme. 
@@ -72,8 +72,8 @@ Plug 'neoclide/coc.nvim', {'branch' : 'release'} "  Intellisense engine for neov
 Plug 'elzr/vim-json' " Json better highlighting
 Plug 'mattn/emmet-vim' " HTML Expansion using visual highlighting and vim commands.
 " Plug 'sheerun/vim-polyglot' " Polygot language pack. Loads things on demand
-" Plug 'iamcco/markdown-preview.nvim' "HTML/Markdown preview in the browser live
-" Plug 'donRaphaco/neotex', { 'for' : 'tex' }  " Live preview for Latex
+Plug 'iamcco/markdown-preview.nvim' "HTML/Markdown preview in the browser live
+Plug 'donRaphaco/neotex', { 'for' : 'tex' }  " Live preview for Latex
 " Utility
 Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in functions.
 call plug#end()
@@ -112,6 +112,17 @@ let g:NERDTreeIndicatorMapCustom = {
 " Let's create some leader key bindings
 let mapleader = "\<Space>"
 
+nnoremap <silent><leader> :<c-u>WhichKey '<Space>'<CR>
+set timeoutlen=500
+
+" Defining our keymap for which-key 
+let g:which_key_map = {}
+let g:which_key_map.f = { 'name' : '+files' }
+" In order to define sub-menu mappings, we need to define the top-level maps 
+"let g:which_key_map.f = {
+"  \ 'name' : '+file',
+"  \ 'f' : [ 'ff', 'Find File' ],
+"  \}
 
 " Buffer control
 nnoremap <leader>bn :bn<CR>
@@ -150,10 +161,10 @@ nnoremap <leader>gc :Gcommit<CR>
 
 " Git gutter settings
 let g:gitgutter_max_signs = 500 " Default value. 
-set updatetime=100
 
 " Open the config
 nnoremap <leader>ec :e $MYVIMRC<CR>
+
 
 " Application bindings 
 nnoremap <leader>at :terminal<CR>
@@ -175,7 +186,6 @@ tnoremap <A-q> <C-\><C-n> " Terminal binding to escape terminal
 " Check coc extensions
 " Maybe plugins
 " Startify
-" command-t
 " devicons
 " Nerdtree git
 " ctrlp vs fzf
@@ -219,8 +229,8 @@ endfunction
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
