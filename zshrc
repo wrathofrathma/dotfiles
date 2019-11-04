@@ -26,8 +26,9 @@ else
 fi
 ZSH_THEME=""
 DISABLE_AUTO_UPDATE="true"
-plugins=(gradle git-extras sudo tmux)
+plugins=(gradle git-extras sudo tmux fzf)
 
+export FZF_BASE=/usr/share/fzf
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
@@ -152,8 +153,8 @@ alias egrep="egrep --color=auto"
 alias less="less -R"
 alias pacman="pacman --color=always"
 alias yay="yay --color always"
-export FZF_DEFAULT_COMMAND="fd --hidden $HOME"
-
+alias find="fd"
+export FZF_DEFAULT_COMMAND="fd --full-path $HOME"
 
 ##
 # Completion system
