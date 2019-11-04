@@ -28,6 +28,8 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set updatetime=100
+set splitright
+set splitbelow
 
 call plug#begin(stdpath('data').'/plugged')
 """ Version Control Software Plugins 
@@ -136,6 +138,20 @@ nnoremap <leader>wk <C-w><C-k>
 nnoremap <leader>ws <C-w><C-s>
 nnoremap <leader>wv <C-w><C-v>
 nnoremap <leader>wd <C-w><C-q>
+nnoremap <leader>wr <C-w>R
+
+" Split size control 
+nnoremap <leader>sh= 10<C-w>+
+nnoremap <leader>sh- 10<C-w>-
+nnoremap <leader>sw= 10<C-w><
+nnoremap <leader>sw- 10<C-w>>
+nnoremap <leader>ss= <C-w>=
+
+" Tab control 
+nnoremap <leader>tc :tabnew<CR> 
+nnoremap <leader>td :tabclose<CR>
+nnoremap <leader>tn :tabnext<CR>
+nnoremap <leader>tp :tabprevious<CR>
 
 " Tab navigation...we need to find a way to grab the count with an expression.
 nnoremap <leader>1 1gt
