@@ -72,7 +72,6 @@ Plug 'neoclide/coc.nvim', {'branch' : 'release'} "  Intellisense engine for neov
 Plug 'elzr/vim-json' " Json better highlighting
 Plug 'mattn/emmet-vim' " HTML Expansion using visual highlighting and vim commands.
 " Plug 'sheerun/vim-polyglot' " Polygot language pack. Loads things on demand
-Plug 'iamcco/markdown-preview.nvim' "HTML/Markdown preview in the browser live
 Plug 'donRaphaco/neotex', { 'for' : 'tex' }  " Live preview for Latex
 " Utility
 Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in functions.
@@ -189,6 +188,9 @@ tnoremap <A-q> <C-\><C-n> " Terminal binding to escape terminal
 " devicons
 " Nerdtree git
 " ctrlp vs fzf
+" devdocs.io support 
+"
+"
 " Sudo editing macro
 nnoremap <leader>fS :w suda://%<CR> " Saves current file as sudo
 nnoremap <leader>fE :e suda://%<CR> " Opens current file for sudo writing

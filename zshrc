@@ -141,6 +141,10 @@ if command -V dircolors >/dev/null 2>&1; then
 	alias ls="ls -F --color=auto --group-directories-first"
 fi
 
+#alias ls="exa"
+alias diff="diff-so-fancy"
+alias ping="prettyping --nolegend"
+alias cat="bat"
 alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
