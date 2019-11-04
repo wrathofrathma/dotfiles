@@ -152,6 +152,7 @@ alias egrep="egrep --color=auto"
 alias less="less -R"
 alias pacman="pacman --color=always"
 alias yay="yay --color always"
+export FZF_DEFAULT_COMMAND="fd --hidden $HOME"
 
 
 ##
