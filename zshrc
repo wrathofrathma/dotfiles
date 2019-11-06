@@ -1,15 +1,15 @@
 #!/bin/zsh
 
 
-# This is my zshrc. I suggest reading through all of the comments and editing path variables defined at the top. 
-# Feature & Plugin Overview 
+# This is my zshrc. I suggest reading through all of the comments and editing path variables defined at the top.
+# Feature & Plugin Overview
 
-# PATH Variables 
-export DOT_FOLDER=$HOME/.dotfiles 
+# PATH Variables
+export DOT_FOLDER=$HOME/.dotfiles
 export WP_FOLDER=/usr/share/wallpapers
 ZSH=$HOME/.oh-my-zsh/
 
-# Oh-My-Zsh auto install stuff. 
+# Oh-My-Zsh auto install stuff.
 #if [ ! -d $ZSH ]; then
 #  # Assume oh-my-zsh isn't installed
 #  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -39,7 +39,7 @@ source $ZSH/oh-my-zsh.sh
 #Welcome plugin, just uses screenfetch to output system info at start. I'm not sure I like the lag it introduces though.
 #source $ZSH/plugins/welcome/welcome.plugin.zsh
 
-# Fish-like autosuggestions - Was hoping it'd be command auto complete, but nope. 
+# Fish-like autosuggestions - Was hoping it'd be command auto complete, but nope.
 #source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
@@ -154,7 +154,7 @@ alias less="less -R"
 alias pacman="pacman --color=always"
 alias yay="yay --color always"
 # These aliases caused doing fzf searches in /etc to fail.
-#alias find="fd"
+#alias find="fd --full-path"
 #export FZF_DEFAULT_COMMAND="fd --full-path $HOME"
 
 ##

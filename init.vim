@@ -185,6 +185,7 @@ nnoremap <leader>ec :e $MYVIMRC<CR>
 nnoremap <leader>at :terminal<CR>
 tnoremap <A-q> <C-\><C-n> " Terminal binding to escape terminal
 
+" TODO 
 " keys we need to implement
 " fuzzy file search
 " countable expressions
@@ -205,7 +206,7 @@ tnoremap <A-q> <C-\><C-n> " Terminal binding to escape terminal
 " Nerdtree git
 " ctrlp vs fzf
 " devdocs.io support 
-"
+" ultisnips
 "
 " Sudo editing macro
 nnoremap <leader>fS :w suda://%<CR> " Saves current file as sudo
