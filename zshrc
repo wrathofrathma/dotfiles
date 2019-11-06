@@ -153,8 +153,9 @@ alias egrep="egrep --color=auto"
 alias less="less -R"
 alias pacman="pacman --color=always"
 alias yay="yay --color always"
-alias find="fd"
-export FZF_DEFAULT_COMMAND="fd --full-path $HOME"
+# These aliases caused doing fzf searches in /etc to fail.
+#alias find="fd"
+#export FZF_DEFAULT_COMMAND="fd --full-path $HOME"
 
 ##
 # Completion system
