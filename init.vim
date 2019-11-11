@@ -80,8 +80,9 @@ Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in
 call plug#end()
 
 " Default Theme
-colorscheme OceanicNext
+"colorscheme OceanicNext
 hi Normal guibg=None ctermbg=None
+hi NonText guibg=None ctermbg=None
 
 let g:NERDTreeIndicatorMapCustom = {
   \ "Modified"  : "✹",
