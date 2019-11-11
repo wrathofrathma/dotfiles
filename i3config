@@ -14,7 +14,7 @@ font pango:monospace 8
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -33,7 +33,7 @@ bindsym $mod+Return exec kitty
 bindsym $mod+w kill
 
 # drun 
-bindsym $mod+space exec rofi -combi-modi drun#window -theme sidebar -font "hack 10" -show combi
+bindsym $mod+space exec rofi -combi-modi drun#window -theme arthur -font "hack 10" -show combi -show-icons
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -160,13 +160,9 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-
+bindsym $mod+c exec gnome-control-center
 # Autostart section 
-exec ~/.dotfiles/autostart.sh
-exec compton&
-exec pulseaudio --daemonize=True
-exec xrdb -merge $DOT_FOLDER/Xresources
-exec sh ~/.fehbg
+exec /opt/dotfiles/autostart.sh
 
 #hide_edge_borders vertical
 for_window [class="^.*"] border pixel 1

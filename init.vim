@@ -81,7 +81,7 @@ call plug#end()
 
 " Default Theme
 colorscheme OceanicNext
-
+hi Normal guibg=None ctermbg=None
 
 let g:NERDTreeIndicatorMapCustom = {
   \ "Modified"  : "✹",

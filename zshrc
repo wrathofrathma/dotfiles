@@ -5,7 +5,7 @@
 # Feature & Plugin Overview
 
 # PATH Variables
-export DOT_FOLDER=$HOME/.dotfiles
+export DOT_FOLDER=/opt/dotfiles
 export WP_FOLDER=/usr/share/wallpapers
 ZSH=$HOME/.oh-my-zsh/
 
