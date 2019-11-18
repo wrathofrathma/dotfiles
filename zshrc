@@ -22,7 +22,7 @@ ZSH=$HOME/.oh-my-zsh/
 if [ -n "$SSH_CONNECTION" ]; then
   ZSH_TMUX_AUTOSTART="false"
 else
-  ZSH_TMUX_AUTOSTART="true"
+  ZSH_TMUX_AUTOSTART="false"
 fi
 ZSH_THEME=""
 DISABLE_AUTO_UPDATE="true"
@@ -152,7 +152,11 @@ alias egrep="egrep --color=auto"
 # make less accept color codes and re-output them
 alias less="less -R"
 alias pacman="pacman --color=always"
-alias yay="yay --color always"
+if (( $EUID != 0 )); then
+  alias yay="yay --color always"
+else
+  alias yay="sudo -u arch yay --color=always"
+fi
 # These aliases caused doing fzf searches in /etc to fail.
 #alias find="fd --full-path"
 #export FZF_DEFAULT_COMMAND="fd --full-path $HOME"
