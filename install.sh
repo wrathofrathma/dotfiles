@@ -5,6 +5,7 @@ echo "Installing rathma's dotfiles to $1"
 mkdir -p $1/.config/nvim
 mkdir -p $1/.config/kitty
 mkdir -p $1/.config/i3
+mkdir -p $1/.cache
 
 cp --remove-destination /opt/dotfiles/zshrc $1/.zshrc
 cp --remove-destination /opt/dotfiles/init.vim $1/.config/nvim/init.vim
