@@ -110,81 +110,117 @@ let g:NERDTreeIndicatorMapCustom = {
 "hi IndentGuidesOdd ctermbg=grey
 "hi IndentGuidesEven ctermbg=lightgrey
 
-
-" Let's create some leader key bindings
-let mapleader = "\<Space>"
-
+"""""""""""""""""""" WHICH KEY CONFIG & KEYBINDNIGS ------------------------------------
+let mapleader = "\<Space>" " Defining space as our map leader. 
+call which_key#register('<Space>',"g:which_key_map")
+vnoremap <silent><leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 nnoremap <silent><leader> :<c-u>WhichKey '<Space>'<CR>
-set timeoutlen=500
+set timeoutlen=500 
 
-" Defining our keymap for which-key 
+
+" Defining our keymaps for which-key 
 let g:which_key_map = {}
-let g:which_key_map.f = { 'name' : '+files' }
 " In order to define sub-menu mappings, we need to define the top-level maps 
-"let g:which_key_map.f = {
-"  \ 'name' : '+file',
-"  \ 'f' : [ 'ff', 'Find File' ],
-"  \}
+let g:which_key_map.a = { 'name' : '+applications'}
+let g:which_key_map.b = { 'name' : '+buffer'}
+let g:which_key_map.c = { 'name' : '+comment'}
+let g:which_key_map.e = { 'name' : '+edit config'}
+let g:which_key_map.f = { 'name' : '+file'}
+let g:which_key_map.g = { 'name' : '+git'}
+let g:which_key_map.t = { 'name' : '+tab'}
+let g:which_key_map.w = { 'name' : '+window'}
 
 " Buffer control
 nnoremap <leader>bn :bn<CR>
+let g:which_key_map.b.n = 'Next buffer'
 nnoremap <leader>bp :bp<CR>
+let g:which_key_map.b.p = 'Previous buffer'
 nnoremap <leader>bd :bd<CR>
+let g:which_key_map.b.d = 'Delete buffer'
 
-" Window navigation
+"" Window navigation
 nnoremap <leader>wl <C-w><C-l>
+let g:which_key_map.w.l = 'Right window'
 nnoremap <leader>wh <C-w><C-h>
+let g:which_key_map.w.h = 'Left window'
 nnoremap <leader>wj <C-w><C-j>
+let g:which_key_map.w.j = 'Down window'
 nnoremap <leader>wk <C-w><C-k>
+let g:which_key_map.w.k = 'Up window'
 nnoremap <leader>ws <C-w><C-s>
+let g:which_key_map.w.s = 'Split horizontally'
 nnoremap <leader>wv <C-w><C-v>
+let g:which_key_map.w.v = 'Split vertically'
 nnoremap <leader>wd <C-w><C-q>
+let g:which_key_map.w.d = 'Delete window'
 nnoremap <leader>wr <C-w>R
+let g:which_key_map.w.r = 'Reverse windows'
 
-" Split size control 
-nnoremap <leader>sh= 10<C-w>+
-nnoremap <leader>sh- 10<C-w>-
-nnoremap <leader>sw= 10<C-w><
-nnoremap <leader>sw- 10<C-w>>
-nnoremap <leader>ss= <C-w>=
+"" Split size control 
+"nnoremap <leader>sh= 10<C-w>+
+"nnoremap <leader>sh- 10<C-w>-
+"nnoremap <leader>sw= 10<C-w><
+"nnoremap <leader>sw- 10<C-w>>
+"nnoremap <leader>ss= <C-w>=
 
-" Tab control 
+"" Tab control 
 nnoremap <leader>tc :tabnew<CR> 
+let g:which_key_map.t.c = 'Create tab'
 nnoremap <leader>td :tabclose<CR>
+let g:which_key_map.t.d = 'Delete tab'
 nnoremap <leader>tn :tabnext<CR>
+let g:which_key_map.t.n = 'Next tab'
 nnoremap <leader>tp :tabprevious<CR>
+let g:which_key_map.t.p = 'Previous tab'
 
-" Tab navigation...we need to find a way to grab the count with an expression.
-nnoremap <leader>1 1gt
-nnoremap <leader>2 2gt
-nnoremap <leader>3 3gt
-nnoremap <leader>4 4gt
-nnoremap <leader>5 5gt
-nnoremap <leader>6 6gt
-nnoremap <leader>7 7gt
-nnoremap <leader>8 8gt
+"" Tab navigation...we need to find a way to grab the count with an expression.
+nnoremap <leader>t1 1gt
+nnoremap <leader>t2 2gt
+nnoremap <leader>t3 3gt
+nnoremap <leader>t4 4gt
+let g:which_key_map.t.1 = 'First tab'
+let g:which_key_map.t.2 = 'Second tab'
+let g:which_key_map.t.3 = 'Third tab'
+let g:which_key_map.t.4 = 'Fourth tab'
 
 " File navigation
 nnoremap <leader>ft :NERDTreeToggle<CR>
+let g:which_key_map.f.t = 'Toggle file tree'
 nnoremap <leader>ff :Files 
+let g:which_key_map.f.f = 'Find file'
 
 " Git Control with Fugitive
-nnoremap <leader>gf :Gfetch<CR>
-nnoremap <leader>gp :Gpull<CR>
-nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gm :Gmerge<CR>
-nnoremap <leader>gc :Gcommit<CR>
+"nnoremap <leader>gf :Gfetch<CR>
+"nnoremap <leader>gp :Gpull<CR>
+"nnoremap <leader>gb :Gblame<CR>
+"nnoremap <leader>gm :Gmerge<CR>
+"nnoremap <leader>gc :Gcommit<CR>
 
 " Git gutter settings
 let g:gitgutter_max_signs = 500 " Default value. 
 
 " Open the config
 nnoremap <leader>ec :e $MYVIMRC<CR>
+let g:which_key_map.e.c = "Open config"
 
 
-" Application bindings 
+"" Application bindings 
 nnoremap <leader>at :terminal<CR>
 tnoremap <A-q> <C-\><C-n> " Terminal binding to escape terminal
+let g:which_key_map.a.t = 'Open terminal'
+
+" Nerd commenter settings
+let g:which_key_map.c.t = 'Toggle comment'
+let g:which_key_map.c.i = 'Invert comment' 
+let g:which_key_map.c.y = 'Yank & comment' 
+let g:which_key_map.c.s = 'Sexy comment' 
+let g:which_key_map.c['$'] = 'Comment to EOL' 
+let g:which_key_map.c[' '] = 'Comment' 
+let g:which_key_map.c.c = 'Comment' 
+let g:which_key_map.c.u = 'Uncomment' 
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " TODO 
 " keys we need to implement
@@ -210,8 +246,8 @@ tnoremap <A-q> <C-\><C-n> " Terminal binding to escape terminal
 " ultisnips
 "
 " Sudo editing macro
-nnoremap <leader>fS :w suda://%<CR> " Saves current file as sudo
-nnoremap <leader>fE :e suda://%<CR> " Opens current file for sudo writing
+"nnoremap <leader>fS :w suda://%<CR> " Saves current file as sudo
+"nnoremap <leader>fE :e suda://%<CR> " Opens current file for sudo writing
 
 
 """" COC Default config stuff. We need to edit this to fit our needs
@@ -229,10 +265,10 @@ function! s:check_back_space() abort
 endfunction
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+"nmap <silent> gd <Plug>(coc-definition)
+"nmap <silent> gy <Plug>(coc-type-definition)
+"nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -246,7 +282,7 @@ function! s:show_documentation()
 endfunction
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+"nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
 "xmap <leader>f  <Plug>(coc-format-selected)
