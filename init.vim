@@ -67,7 +67,9 @@ Plug 'scrooloose/nerdcommenter' " Makes commenting simpler
 " Themes
 Plug 'mhartington/oceanic-next' " Oceanic theme
 Plug 'morhetz/gruvbox' " Gruvbox theme
-
+Plug 'fcpg/vim-orbital' " orbital theme
+Plug 'christophermca/meta5'
+Plug 'dracula/vim'
 " Language Packs
 Plug 'neoclide/coc.nvim', {'branch' : 'release'} "  Intellisense engine for neovim. Requires an LSP.
 
@@ -80,9 +82,9 @@ Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in
 call plug#end()
 
 " Default Theme
-"colorscheme OceanicNext
-hi Normal guibg=None ctermbg=None
-hi NonText guibg=None ctermbg=None
+colorscheme meta5
+"hi Normal guibg=None ctermbg=None
+"hi NonText guibg=None ctermbg=None
 
 let g:NERDTreeIndicatorMapCustom = {
   \ "Modified"  : "✹",
