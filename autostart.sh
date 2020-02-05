@@ -14,7 +14,7 @@ fi
 #xrandr --output eDP1 --primary --mode 3840x2160 --rotate normal
 
 # This is my generic autostart file for my different wms 
-compton &
+picom &
 #pulseaudio --daemonize=True
 xrdb -merge "$DOT_FOLDER/Xresources"
 # Reloads sysctl configs so league works.
