@@ -20,9 +20,9 @@ ZSH=/usr/share/oh-my-zsh/
 
 # Tmux settings
 if [ -n "$SSH_CONNECTION" ]; then
-  ZSH_TMUX_AUTOSTART="false"
-else
   ZSH_TMUX_AUTOSTART="true"
+else
+  ZSH_TMUX_AUTOSTART="false"
 fi
 ZSH_THEME=""
 DISABLE_AUTO_UPDATE="true"
