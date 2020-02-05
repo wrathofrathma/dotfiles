@@ -197,10 +197,11 @@ nmap <silent><unique> '.s:map_prefix.'s <Plug>VimwikiUISelect
 nmap <silent><unique> '.s:map_prefix.'i <Plug>VimwikiDiaryIndex
 nmap <silent><buffer> '.vimwiki#vars#get_global('map_prefix').'d <Plug>VimwikiDeleteLink
 nmap <silent><buffer> '.vimwiki#vars#get_global('map_prefix').'r <Plug>VimwikiRenameLink
-nnoremap <leader>nw :VimwikiIndex<CR> " Opens default wiki index file.
-nnoremap <leader>nt :VimwikiTabIndex<CR> " Opens default wiki index file in a new tab.
+nnoremap <leader>nw :VimwikiIndex<CR> 
+nnoremap <leader>nt :VimwikiTabIndex<CR>
 nnoremap <leader>ns :Rg ~/.vimwiki<CR>
 nnoremap <leader>nf :Files ~/.vimwiki<CR>
+nnoremap <leader>nn :e ~/.vimwiki/todo.wiki<CR>
 autocmd Filetype vimwiki nnoremap <leader>nd :VimwikiDeleteLink<CR>
 autocmd Filetype vimwiki nnoremap <leader>nr :VimwikiRenameLink<CR>
 let g:which_key_map.n.w = 'Open notes index'
@@ -209,6 +210,7 @@ let g:which_key_map.n.s = 'Search notes'
 autocmd Filetype vimwiki let g:which_key_map.n.d = 'Delete note'
 autocmd Filetype vimwiki let g:which_key_map.n.r = 'Rename note'
 let g:which_key_map.n.f = 'Find note'
+let g:which_key_map.n.n = 'Open todo'
 
 "" Window navigation
 nnoremap <leader>wl <C-w><C-l>
@@ -253,6 +255,7 @@ nnoremap <leader>ft :NERDTreeToggle<CR>
 let g:which_key_map.f.t = 'Toggle file tree'
 nnoremap <leader>ff :Files 
 let g:which_key_map.f.f = 'Find file'
+let g:which_key_map.f.g = '[TODO]Find file with grep'
 
 " Git Control with Fugitive
 "nnoremap <leader>gf :Gfetch<CR>
