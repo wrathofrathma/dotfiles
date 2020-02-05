@@ -121,8 +121,8 @@ endif
 " --------------- Theme config ------------------------- "
 " Default Theme
 colorscheme meta5
-"hi Normal guibg=None ctermbg=None
-"hi NonText guibg=None ctermbg=None
+hi Normal guibg=None ctermbg=None
+hi NonText guibg=None ctermbg=None
 " ------------------------------------------------------- "
 
 let g:NERDTreeIndicatorMapCustom = {
@@ -157,6 +157,23 @@ let g:vimwiki_list = [{'path':'~/.vimwiki/',
       \ }]
       "\ 'syntax': 'markdown','ext' : '.md'}]
 
+" -------------- Vim functions ------------------------ "
+" Version of notes with preview window
+command! -bang Notes call fzf#vim#files('~/.vimwiki/',{'options':['--preview','~/.local/share/nvim/plugged/fzf.vim/bin/preview.sh {}']},<bang>0)
+"command! -bang Notes call fzf#vim#files('~/.vimwiki/',<bang>0)
+
+" Uses Rg on the vimwiki directory
+function! RipgrepNotes(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s ~/.vimwiki/|| true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang NoteSearch call RipgrepNotes(<q-args>, <bang>0)
+
+
 "autocmd! FileType which_key
 "autocmd  FileType which_key set laststatus=0 noshowmode noruler
 "  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
@@ -189,7 +206,8 @@ let g:which_key_map.b.p = 'Previous buffer'
 nnoremap <leader>bd :bd<CR>
 let g:which_key_map.b.d = 'Delete buffer'
 
-" Wiki control
+" ----  Wiki control
+" Unmapping shit we don't use or we're remapping.
 nmap <silent><unique> '.s:map_prefix.'d <Plug>VimwikiDeleteLink
 nmap <silent><unique> '.s:map_prefix.'t <Plug>VimwikiTabIndex
 nmap <silent><unique> '.s:map_prefix.'w <Plug>VimwikiIndex
@@ -199,11 +217,12 @@ nmap <silent><buffer> '.vimwiki#vars#get_global('map_prefix').'d <Plug>VimwikiDe
 nmap <silent><buffer> '.vimwiki#vars#get_global('map_prefix').'r <Plug>VimwikiRenameLink
 nnoremap <leader>nw :VimwikiIndex<CR> 
 nnoremap <leader>nt :VimwikiTabIndex<CR>
-nnoremap <leader>ns :Rg ~/.vimwiki<CR>
-nnoremap <leader>nf :Files ~/.vimwiki<CR>
+nnoremap <leader>ns :NoteSearch<CR>
+nnoremap <leader>nf :Notes<CR>
 nnoremap <leader>nn :e ~/.vimwiki/todo.wiki<CR>
 autocmd Filetype vimwiki nnoremap <leader>nd :VimwikiDeleteLink<CR>
 autocmd Filetype vimwiki nnoremap <leader>nr :VimwikiRenameLink<CR>
+autocmd Filetype vimwiki nnoremap <leader>nh <Plug>Vimwiki2HTML
 let g:which_key_map.n.w = 'Open notes index'
 let g:which_key_map.n.t = 'Open notes index in tab'
 let g:which_key_map.n.s = 'Search notes'
@@ -229,6 +248,9 @@ nnoremap <leader>wd <C-w><C-q>
 let g:which_key_map.w.d = 'Delete window'
 nnoremap <leader>wr <C-w>R
 let g:which_key_map.w.r = 'Reverse windows'
+nnoremap <leader>wg :Windows<CR>
+let g:which_key_map.w.g = 'List windows'
+
 
 "" Tab control 
 nnoremap <leader>tc :tabnew<CR> 
@@ -254,8 +276,14 @@ let g:which_key_map.t.4 = 'Fourth tab'
 nnoremap <leader>ft :NERDTreeToggle<CR>
 let g:which_key_map.f.t = 'Toggle file tree'
 nnoremap <leader>ff :Files 
+nnoremap <leader>fs :Rg<CR>
+let g:which_key_map.f.s = 'Search files'
 let g:which_key_map.f.f = 'Find file'
 let g:which_key_map.f.g = '[TODO]Find file with grep'
+nnoremap <leader>fS :w suda://%<CR> " Saves current file as sudo
+nnoremap <leader>fe :e suda://%<CR> " Opens current file for sudo writing
+let g:which_key_map.f.S = 'Sudo save'
+let g:which_key_map.f.e = 'Sudo reopen'
 
 " Git Control with Fugitive
 "nnoremap <leader>gf :Gfetch<CR>
@@ -315,9 +343,6 @@ let g:which_key_map.c.u = 'Uncomment'
 " devdocs.io support 
 " ultisnips
 "
-" Sudo editing macro
-"nnoremap <leader>fS :w suda://%<CR> " Saves current file as sudo
-"nnoremap <leader>fE :e suda://%<CR> " Opens current file for sudo writing
 
 
 """" COC Default config stuff. We need to edit this to fit our needs
