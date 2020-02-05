@@ -72,11 +72,11 @@ Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in
 Plug 'vimwiki/vimwiki' " Personal wiki inside of vim. Currently being used for notes and todo mostly.
 call plug#end()
 " ---------------- Vim config stuff ------------------- "
+" ----- Bells and whistles ----- "
 syntax on " Syntax highlighting
 set ignorecase " Ignores case when searching 
 set smartcase " When searching, try to be smart about cases. 
 set hlsearch " Highlight search results
-set lazyredraw " Don't redraw during macro execution
 set noerrorbells
 set novisualbell
 set encoding=utf8
@@ -84,21 +84,28 @@ set ffs=unix,dos,mac
 set textwidth=160
 set cmdheight=1 " Change this if we need a bigger command buffer height
 set signcolumn=yes " Always display signcolumns(mostly for git)
-set noswapfile
-set nowb
-set nobackup
 set nocompatible
 set number
 filetype plugin on
+set updatetime=100 "Relevant to the leader key menu popping up quickly.
+set splitright " This and splitbelow define split behavior. 
+set splitbelow
 
-" Tab settings...
+" ----- Performance tuning ----- "
+" TODO - Autocmd grouping for our stuff. Maybe if we do that or clear a bunch of them from plugins we can improve performance
+" Don't redraw during macro executions
+set lazyredraw
+set noswapfile
+set nowb
+set nobackup
+" Disable syntax highlighting for files >1M
+autocmd Filetype * if getfsize(@%) > 1000000 | setlocal syntax=off | endif
+
+" ----- Tab settings ----- "
 set tabstop=2
 set shiftwidth=2
 set expandtab
 
-set updatetime=100 "Relevant to the leader key menu popping up quickly.
-set splitright " This and splitbelow define split behavior. 
-set splitbelow
 
 let g:python_recommended_style = 0
 " ----------------- MACOS specific config -------------- "
@@ -165,7 +172,7 @@ let g:which_key_map = {}
 let g:which_key_map.a = { 'name' : '+applications'}
 let g:which_key_map.b = { 'name' : '+buffer'}
 let g:which_key_map.c = { 'name' : '+comment'}
-let g:which_key_map.e = { 'name' : '+edit config'}
+let g:which_key_map.e = { 'name' : '+editor'}
 let g:which_key_map.f = { 'name' : '+file'}
 let g:which_key_map.g = { 'name' : '+git'}
 let g:which_key_map.n = { 'name' : '+notes'}
@@ -257,7 +264,9 @@ let g:gitgutter_max_signs = 500 " Default value.
 
 " Open the config
 nnoremap <leader>ec :e $MYVIMRC<CR>
+nnoremap <leader>eC :Colors<CR>
 let g:which_key_map.e.c = "Open config"
+let g:which_key_map.e.C = "Select colorscheme"
 
 
 "" Application bindings 
