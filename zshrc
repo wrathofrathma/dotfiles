@@ -7,8 +7,8 @@
 # PATH Variables
 export DOT_FOLDER=/opt/dotfiles
 export WP_FOLDER=/usr/share/wallpapers
-ZSH=$HOME/.oh-my-zsh/
-
+#ZSH=$HOME/.oh-my-zsh/
+ZSH=/usr/share/oh-my-zsh/
 # Oh-My-Zsh auto install stuff.
 #if [ ! -d $ZSH ]; then
 #  # Assume oh-my-zsh isn't installed
@@ -152,7 +152,11 @@ alias egrep="egrep --color=auto"
 # make less accept color codes and re-output them
 alias less="less -R"
 alias pacman="pacman --color=always"
-alias yay="yay --color always"
+if (( $EUID != 0 )); then
+  alias yay="yay --color always"
+else
+  alias yay="yay --color=always"
+fi
 # These aliases caused doing fzf searches in /etc to fail.
 #alias find="fd --full-path"
 #export FZF_DEFAULT_COMMAND="fd --full-path $HOME"
