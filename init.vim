@@ -152,7 +152,9 @@ let g:NERDTreeIndicatorMapCustom = {
 
 
 " --------------- Plugin config ------------------------ "
-let g:vimwiki_list = [{'path':'~/.vimwiki/'}]
+let g:vimwiki_list = [{'path':'~/.vimwiki/',
+      \ 'nested_syntaxes': { 'python':'python', 'c++':'cpp', 'c':'c', 'bash':'sh', 'html':'html','css':'css','java':'java'},
+      \ }]
       "\ 'syntax': 'markdown','ext' : '.md'}]
 
 "autocmd! FileType which_key
