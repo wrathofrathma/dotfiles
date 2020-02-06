@@ -11,7 +11,10 @@
 "       to 
 "     - "Plug 'junegunn/fzf', {'dir' : '~/.fzf', 'do' : './install --all' }
 "  3. ripgrep
-"  4. nvim-python
+"  4. ctags
+"  5. pip3 install neovim
+"  6. pip2 install neovim
+"  7. Optional: powerline fonts
 " 
 " Run this to install the plugins
 " :PlugInstall
@@ -31,12 +34,13 @@ Plug 'xuyuanp/nerdtree-git-plugin' " Git status in the nerdtree doesn't seem to 
 Plug 'junegunn/fzf' " Fuzzy finder support
 Plug 'junegunn/fzf.vim' " vim frontend to fzf
 Plug 'BurntSushi/ripgrep' " powerful recursive regex tool
-" Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, tag, mru finder
-" Plug 'wincent/command-t' " File stuff
 
 " UI Tweaks
 Plug 'vim-airline/vim-airline' " Fancy status bar
+Plug 'vim-airline/vim-airline-themes'
 Plug 'liuchengxu/vim-which-key' " Pop up guidef or available hotkeys.
+Plug 'majutsushi/tagbar'
+Plug 'mhinz/vim-startify'
 
 " Editing tweaks
 Plug 'yggdroot/indentline' " Softer indentation
@@ -44,6 +48,7 @@ Plug 'tpope/vim-surround' " Makes surrounding things with quotes and stuff easie
 Plug 'ap/vim-css-color' " css color previewer
 Plug 'lambdalisue/suda.vim' " Sudo support for nvim
 Plug 'scrooloose/nerdcommenter' " Makes commenting simpler
+Plug 'SirVer/ultisnips'
 
 " Themes
 Plug 'mhartington/oceanic-next' " Oceanic theme
@@ -59,6 +64,7 @@ Plug 'elzr/vim-json' " Json better highlighting
 Plug 'mattn/emmet-vim' " HTML Expansion using visual highlighting and vim commands.
 " Plug 'sheerun/vim-polyglot' " Polygot language pack. Loads things on demand
 Plug 'donRaphaco/neotex', { 'for' : 'tex' }  " Live preview for Latex
+Plug 'tpope/vim-dispatch' " Compiler
 
 " Utility
 Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in functions.
@@ -148,6 +154,32 @@ let g:NERDTreeIndicatorMapCustom = {
 
 
 " --------------- Plugin config ------------------------ "
+let g:airline#extensions#tabline#enabled=1
+let g:airline_powerline_fonts = 1
+"let g:startify_custom_header = [ 
+"      \ '   _____                  __                        ',
+"      \ '  / ___/____ _____  _____/ /___  ______ ________  __',
+"      \ '  \__ \/ __ `/ __ \/ ___/ __/ / / / __ `/ ___/ / / /',
+"      \ ' ___/ / /_/ / / / / /__/ /_/ /_/ / /_/ / /  / /_/ / ',
+"      \ '/____/\__,_/_/ /_/\___/\__/\__,_/\__,_/_/   \__, /  ',
+"      \ '                                           /____/   ']
+let g:startify_custom_header = [
+      \ '    ____        __  __                   _          _    ___         ',
+      \ '   / __ \____ _/ /_/ /_  ____ ___  ____ ( )_____   | |  / (_)___ ___ ',
+      \ '  / /_/ / __ `/ __/ __ \/ __ `__ \/ __ `/// ___/   | | / / / __ `__ \',
+      \ ' / _, _/ /_/ / /_/ / / / / / / / / /_/ / (__  )    | |/ / / / / / / /',
+      \ '/_/ |_|\__,_/\__/_/ /_/_/ /_/ /_/\__,_/ /____/     |___/_/_/ /_/ /_/ ',
+      \ '                                                                     ',
+      \ '   ______            _____      ',
+      \ '  / ____/___  ____  / __(_)___ _',
+      \ ' / /   / __ \/ __ \/ /_/ / __ `/',
+      \ '/ /___/ /_/ / / / / __/ / /_/ / ',
+      \ '\____/\____/_/ /_/_/ /_/\__, /  ',
+      \ '                       /____/   ']
+"function! AirlineInit()
+  "let g:airline_section_a = airline#section#create(['mode',' ','branch'])
+"endfunction
+"autocmd VimEnter * call AirlineInit()
 " Git gutter settings
 let g:gitgutter_max_signs = 500 " Default value. 
 
@@ -172,7 +204,9 @@ endfunction
 
 command! -nargs=* -bang NoteSearch call RipgrepNotes(<q-args>, <bang>0)
 
-
+command! -bang Todo call fzf#vim#grep(
+      \ 'rg --column --line-number --no-heading --color=always --ignore-case todo ~/.vimwiki/ || true'.shellescape(<q-args>),1,
+      \ fzf#vim#with_preview(), <bang>0)
 "au! FileType which_key
 "au  FileType which_key set laststatus=0 noshowmode noruler
 "  \| au BufLeave <buffer> set laststatus=2 showmode ruler
@@ -196,6 +230,7 @@ let g:which_key_map.f = { 'name' : '+file'}
 let g:which_key_map.g = { 'name' : '+git'}
 let g:which_key_map.n = { 'name' : '+notes'}
 let g:which_key_map.p = { 'name' : '+project'}
+let g:which_key_map.s = { 'name' : '+session'}
 let g:which_key_map.t = { 'name' : '+tab'}
 let g:which_key_map.w = { 'name' : '+window'}
 
@@ -210,18 +245,30 @@ nnoremap <leader>bd :bd<CR>
 let g:which_key_map.b.d = 'Delete buffer'
 nnoremap <leader>bo :Buffers<CR>
 let g:which_key_map.b.o = 'Open buffers'
+nnoremap <leader>bf :Lines<CR>
+let g:which_key_map.b.f = 'Find in buffers'
 
 " ----  Wiki control
 nnoremap <leader>nw :VimwikiIndex<CR> 
 nnoremap <leader>nt :VimwikiTabIndex<CR>
 nnoremap <leader>ns :NoteSearch<CR>
 nnoremap <leader>nf :Notes<CR>
-nnoremap <leader>nn :e ~/.vimwiki/todo.wiki<CR>
+nnoremap <leader>nn :Todo<CR>
 let g:which_key_map.n.w = 'Open notes index'
 let g:which_key_map.n.t = 'Open notes index in tab'
 let g:which_key_map.n.s = 'Search notes'
 let g:which_key_map.n.f = 'Find note'
 let g:which_key_map.n.n = 'Open todo'
+
+"" Session control
+nnoremap <leader>sl :SLoad<CR> 
+let g:which_key_map.s.l = 'Load Session'
+nnoremap <leader>ss :SSave!<CR> 
+let g:which_key_map.s.s = 'Save Session'
+nnoremap <leader>sd :SDelete!<CR> 
+let g:which_key_map.s.d = 'Delete Session'
+nnoremap <leader>sc :SClose<CR> 
+let g:which_key_map.s.c = 'Close Session'
 
 
 "" Tab control 
@@ -251,18 +298,37 @@ nnoremap <leader>ff :Files
 nnoremap <leader>fs :Rg<CR>
 let g:which_key_map.f.s = 'Search files'
 let g:which_key_map.f.f = 'Find file'
-let g:which_key_map.f.g = '[TODO]Find file with grep'
 nnoremap <leader>fS :w suda://%<CR> " Saves current file as sudo
 nnoremap <leader>fe :e suda://%<CR> " Opens current file for sudo writing
 let g:which_key_map.f.S = 'Sudo save'
 let g:which_key_map.f.e = 'Sudo reopen'
 
 " Git Control with Fugitive
-"nnoremap <leader>gf :Gfetch<CR>
-"nnoremap <leader>gp :Gpull<CR>
-"nnoremap <leader>gb :Gblame<CR>
-"nnoremap <leader>gm :Gmerge<CR>
-"nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gv :Commits<CR>
+let g:which_key_map.g.v = "View commits"
+nnoremap <leader>gV :BCommits<CR>
+let g:which_key_map.g.V = "View buffer commits"
+nnoremap <leader>gl :GV<CR>
+let g:which_key_map.g.l = "View commits in GV"
+nnoremap <leader>gL :GV!<CR>
+let g:which_key_map.g.L = "View buffer commits in GV"
+nnoremap <leader>gb :Gblame<CR>
+let g:which_key_map.g.b = "View blame of buffer"
+nnoremap <leader>gr :Grebase<CR>
+let g:which_key_map.g.r = "Rebase"
+nnoremap <leader>gf :Gfetch<CR>
+let g:which_key_map.g.f = "Fetch"
+nnoremap <leader>gp :Gpush<CR>
+let g:which_key_map.g.p = "Push"
+nnoremap <leader>gP :Gpull<CR>
+let g:which_key_map.g.P = "Pull"
+nnoremap <leader>gc :Gcommit<CR>
+let g:which_key_map.g.c = "Commit"
+nnoremap <leader>gm :Gmerge<CR>
+let g:which_key_map.g.m = "Merge"
+nnoremap <leader>gw :Gwrite<CR>
+let g:which_key_map.g.w = "Write/add"
+
 
 " -- Editor settings
 " Open the config
@@ -279,6 +345,22 @@ let g:which_key_map.e.e = "Open commands"
 nnoremap <leader>eh :Helptags<CR>
 let g:which_key_map.e.h = "Open helptags"
 
+" Toggles
+nnoremap <leader>ett :TagbarToggle<CR>
+let g:which_key_map.e.t.t = "Toggle tags"
+nnoremap <leader>etn :set number!<CR>
+let g:which_key_map.e.t.n = "Toggle numbers"
+nnoremap <leader>etN :set relativenumber!<CR>
+let g:which_key_map.e.t.N = "Toggle relative numbers"
+nnoremap <silent><leader>ets 
+      \ :if exists('syntax_on') <BAR>
+      \ syntax off <BAR>
+      \ else <BAR>
+      \ syntax enable <BAR>
+      \ endif<CR>
+let g:which_key_map.e.t.s = "Toggle syntax highlighting"
+nnoremap <leader>etm :set mouse=a<CR>
+let g:which_key_map.e.t.m = "Turn mouse on"
 
 
 
@@ -333,10 +415,6 @@ augroup KeyMapping
   au Filetype vimwiki nnoremap <buffer><leader>nr :VimwikiRenameLink<CR>
   au Filetype vimwiki nnoremap <buffer><leader>nh :Vimwiki2HTML<CR>
   au Filetype vimwiki nnoremap <buffer><leader>nH :VimwikiAll2HTML<CR>
-  "au Filetype vimwiki let g:which_key_map.n.d = 'Delete note'
-  "au Filetype vimwiki let g:which_key_map.n.r = 'Rename note'
-  "au Filetype vimwiki let g:which_key_map.n.h = 'Generate HTML'
-  "au Filetype vimwiki let g:which_key_map.n.H = 'Generate All HTML'
 
   " Window control "
   au VimEnter * nnoremap <leader>wl <C-w><C-l>
@@ -361,31 +439,6 @@ augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" TODO 
-" keys we need to implement
-" fuzzy file search
-" countable expressions
-" opening files quickly
-" Sudo edit 
-" symbols browser/jumper?
-" line jumping & line view
-" Hotkey browser(vim-which-key)
-" Git keybinds
-" Toggles for....
-" - Numberlines
-" - Relative numberlines
-" Mass indentation
-" Check coc extensions
-" Maybe plugins
-" Startify
-" devicons
-" Nerdtree git
-" ctrlp vs fzf
-" devdocs.io support 
-" ultisnips
-"
-
 
 """" COC Default config stuff. We need to edit this to fit our needs
 
