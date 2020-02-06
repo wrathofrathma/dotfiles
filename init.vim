@@ -14,11 +14,18 @@
 "  4. ctags
 "  5. pip3 install neovim
 "  6. pip2 install neovim
-"  7. Optional: powerline fonts
+"  7. pip install pylint
+"  8. Optional: powerline fonts
 " 
 " Run this to install the plugins
 " :PlugInstall
+" - Linting & Code completion with Coc -
+" Edit config with :CocConfig
+" Some sane starting points
+" :CocInstall coc-python
+" :CocInstall coc-json
 "
+" coc-git is a maybe
 " ----------------- Plugins ------------------------- "
 call plug#begin(stdpath('data').'/plugged')
 """ Version Control Software Plugins 
@@ -48,7 +55,8 @@ Plug 'tpope/vim-surround' " Makes surrounding things with quotes and stuff easie
 Plug 'ap/vim-css-color' " css color previewer
 Plug 'lambdalisue/suda.vim' " Sudo support for nvim
 Plug 'scrooloose/nerdcommenter' " Makes commenting simpler
-Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips' " Snippets engine
+Plug 'honza/vim-snippets' " Prebuilt snippets for popular programming languages
 
 " Themes
 Plug 'mhartington/oceanic-next' " Oceanic theme
@@ -59,7 +67,7 @@ Plug 'dracula/vim'
 Plug 'calincru/peaksea.vim'
 
 " Language Packs
-Plug 'neoclide/coc.nvim', {'branch' : 'release'} "  Intellisense engine for neovim. Requires an LSP.
+Plug 'neoclide/coc.nvim', {'branch' : 'release', 'tag':'*','do':{->coc#util#install()}} "  Intellisense engine for neovim. Requires an LSP.
 Plug 'elzr/vim-json' " Json better highlighting
 Plug 'mattn/emmet-vim' " HTML Expansion using visual highlighting and vim commands.
 " Plug 'sheerun/vim-polyglot' " Polygot language pack. Loads things on demand
@@ -70,6 +78,9 @@ Plug 'tpope/vim-dispatch' " Compiler
 Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in functions.
 Plug 'vimwiki/vimwiki' " Personal wiki inside of vim. Currently being used for notes and todo mostly.
 call plug#end()
+
+let g:coc_global_extensions = ['coc-emoji', 'coc-prettier', 'coc-json', 'coc-python']
+
 " ---------------- Vim config stuff ------------------- "
 " ----- Bells and whistles ----- "
 syntax on " Syntax highlighting
@@ -81,7 +92,7 @@ set novisualbell
 set encoding=utf8
 set ffs=unix,dos,mac
 set textwidth=160
-set cmdheight=1 " Change this if we need a bigger command buffer height
+set cmdheight=2 " Change this if we need a bigger command buffer height
 set signcolumn=yes " Always display signcolumns(mostly for git)
 set nocompatible
 set number
@@ -89,6 +100,7 @@ filetype plugin on
 set updatetime=100 "Relevant to the leader key menu popping up quickly.
 set splitright " This and splitbelow define split behavior. 
 set splitbelow
+set statusline^=%{coc#status()}
 
 " ----- Performance tuning ----- "
 " TODO - au grouping for our stuff. Maybe if we do that or clear a bunch of them from plugins we can improve performance
@@ -183,6 +195,14 @@ let g:startify_custom_header = [
 " Git gutter settings
 let g:gitgutter_max_signs = 500 " Default value. 
 
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
 let g:vimwiki_list = [{'path':'~/.vimwiki/',
       \ 'nested_syntaxes': { 'python':'python', 'c++':'cpp', 'c':'c', 'bash':'sh', 'html':'html','css':'css','java':'java'},
       \ }]
@@ -228,9 +248,9 @@ let g:which_key_map.e = { 'name' : '+editor'}
 let g:which_key_map.e.t = { 'name' : '+toggles'}
 let g:which_key_map.f = { 'name' : '+file'}
 let g:which_key_map.g = { 'name' : '+git'}
-let g:which_key_map.l = { 'lsp' : '+lsp' }
+let g:which_key_map.l = { 'name' : '+lsp' }
+let g:which_key_map.l.t = { 'name' : '+toggles'}
 let g:which_key_map.n = { 'name' : '+notes'}
-let g:which_key_map.p = { 'name' : '+project'}
 let g:which_key_map.s = { 'name' : '+session'}
 let g:which_key_map.t = { 'name' : '+tab'}
 let g:which_key_map.w = { 'name' : '+window'}
@@ -248,6 +268,8 @@ nnoremap <leader>bo :Buffers<CR>
 let g:which_key_map.b.o = 'Open buffers'
 nnoremap <leader>bf :Lines<CR>
 let g:which_key_map.b.f = 'Find in buffers'
+nnoremap <leader>bt :Filetypes<CR>
+let g:which_key_map.b.t= 'Change buffer filetype'
 
 " ----  Wiki control
 nnoremap <leader>nw :VimwikiIndex<CR> 
@@ -281,8 +303,6 @@ nnoremap <leader>tn :tabnext<CR>
 let g:which_key_map.t.n = 'Next tab'
 nnoremap <leader>tp :tabprevious<CR>
 let g:which_key_map.t.p = 'Previous tab'
-
-"" Tab navigation...we need to find a way to grab the count with an expression.
 nnoremap <leader>t1 1gt
 nnoremap <leader>t2 2gt
 nnoremap <leader>t3 3gt
@@ -292,7 +312,7 @@ let g:which_key_map.t.2 = 'Second tab'
 let g:which_key_map.t.3 = 'Third tab'
 let g:which_key_map.t.4 = 'Fourth tab'
 
-" File navigation
+" File control
 nnoremap <leader>ft :NERDTreeToggle<CR>
 let g:which_key_map.f.t = 'Toggle file tree'
 nnoremap <leader>ff :Files 
@@ -303,6 +323,7 @@ nnoremap <leader>fS :w suda://%<CR> " Saves current file as sudo
 nnoremap <leader>fe :e suda://%<CR> " Opens current file for sudo writing
 let g:which_key_map.f.S = 'Sudo save'
 let g:which_key_map.f.e = 'Sudo reopen'
+
 
 " Git Control with Fugitive
 nnoremap <leader>gv :Commits<CR>
@@ -345,8 +366,10 @@ nnoremap <leader>ee :Commands<CR>
 let g:which_key_map.e.e = "Open commands"
 nnoremap <leader>eh :Helptags<CR>
 let g:which_key_map.e.h = "Open helptags"
+nnoremap <leader>es :UltiSnipsEdit<CR>
+let g:which_key_map.e.s = "Open snippets for filetype"
 
-" Toggles
+" Editor Toggles
 nnoremap <leader>ett :TagbarToggle<CR>
 let g:which_key_map.e.t.t = "Toggle tags"
 nnoremap <leader>etn :set number!<CR>
@@ -362,6 +385,13 @@ nnoremap <silent><leader>ets
 let g:which_key_map.e.t.s = "Toggle syntax highlighting"
 nnoremap <leader>etm :set mouse=a<CR>
 let g:which_key_map.e.t.m = "Turn mouse on"
+
+
+" LSP Settings 
+nnoremap <leader>le :CocConfig<CR>
+let g:which_key_map.l.e = "Edit LSP config"
+nnoremap <leader>lC :CocCommand<CR>
+let g:which_key_map.l.C = "Commands"
 
 
 
@@ -382,6 +412,24 @@ let g:which_key_map.c.u = 'Uncomment'
 
 
 " ------ All au keymappings, for both context based keys or conflicting keymaps ------ "
+augroup PythonLeave
+  au!
+  au BufLeave *py unlet g:which_key_map.l.r
+  au BufLeave *py unlet g:which_key_map.l.s
+  au BufLeave *py unlet g:which_key_map.l.l
+  au BufLeave *py unlet g:which_key_map.l.v
+  au BufLeave *py unlet g:which_key_map.l.V
+  au BufLeave *py unlet g:which_key_map.l.t.l
+augroup END
+augroup PythonEnter
+  au!
+  au BufEnter *py let g:which_key_map.l.r = "Run in terminal"
+  au BufEnter *py let g:which_key_map.l.s = "Sort imports"
+  au BufEnter *py let g:which_key_map.l.t.l = "Toggle linting"
+  au BufEnter *py let g:which_key_map.l.l = "Run linting"
+  au BufEnter *py let g:which_key_map.l.v = "View errors"
+  au BufEnter *py let g:which_key_map.l.V = "View linter report"
+augroup END
 augroup VimwikiLeave
   au!
   au BufLeave ~/.vimwiki/* unlet g:which_key_map.n.d
@@ -398,6 +446,17 @@ augroup VimwikiEnter
 augroup END
 augroup KeyMapping
   au!
+  " ----- Python ----- "
+  au Filetype python nnoremap <silent><buffer><leader>lr :CocCommand python.execInTerminal<CR>
+  au Filetype python nnoremap <silent><buffer><leader>ls :CocCommand python.sortImports<CR>
+  au Filetype python nnoremap <silent><buffer><leader>ll :CocCommand python.runLinting<CR>
+  au Filetype python nnoremap <silent><buffer><leader>lV :CocCommand python.viewOutput<CR>
+  au Filetype python nnoremap <silent><buffer><leader>lv :CocList diagnostics<CR>
+  au Filetype python nnoremap <silent><buffer><leader>ltl :CocCommand python.enableLinting<CR>
+  " ----- GitGutter ----- "
+  "au VimEnter * nunmap <leader>hp
+  "au VimEnter * nunmap <leader>hs
+  "au VimEnter * nunmap <leader>hu
   " ----- Vimwiki ----- "
   " Clear vimwiki bindings "
   au VimEnter * nunmap <leader>ws
@@ -480,7 +539,7 @@ endfunction
 "nmap <leader>f  <Plug>(coc-format-selected)
 
 " Highlight symbol under cursor on CursorHold
-au CursorHold * silent call CocActionAsync('highlight')
+"au CursorHold * silent call CocActionAsync('highlight')
 
 " Using CocList
 " Show all diagnostics
