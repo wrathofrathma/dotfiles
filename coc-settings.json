@@ -1,0 +1,8 @@
+{
+  "python.jediEnabled":false,
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.formatting.provider":"black",
+  "coc.preferences.formatOnType":true,
+  "coc.preferences.formatOnSaveFiletypes": ["python"]
+}
