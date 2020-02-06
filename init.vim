@@ -16,13 +16,6 @@
 " Run this to install the plugins
 " :PlugInstall
 "
-" Theoretically we should be good. 
-" TODO 
-" Add a todo-list manager or org-mode style plugin
-" Git control keybindings
-" better file management keybindings.
-" keybindings for vim repeat and the one that edits braces
-"
 " ----------------- Plugins ------------------------- "
 call plug#begin(stdpath('data').'/plugged')
 """ Version Control Software Plugins 
@@ -92,14 +85,17 @@ set splitright " This and splitbelow define split behavior.
 set splitbelow
 
 " ----- Performance tuning ----- "
-" TODO - Autocmd grouping for our stuff. Maybe if we do that or clear a bunch of them from plugins we can improve performance
+" TODO - au grouping for our stuff. Maybe if we do that or clear a bunch of them from plugins we can improve performance
 " Don't redraw during macro executions
 set lazyredraw
 set noswapfile
 set nowb
 set nobackup
 " Disable syntax highlighting for files >1M
-autocmd Filetype * if getfsize(@%) > 1000000 | setlocal syntax=off | endif
+augroup vimrc
+  au Filetype * if getfsize(@%) > 1000000 | setlocal syntax=off | endif
+  au BufWinEnter,Syntax * syn sync minlines=256 maxlines=256
+augroup END
 
 " ----- Tab settings ----- "
 set tabstop=2
@@ -110,7 +106,7 @@ set expandtab
 let g:python_recommended_style = 0
 " ----------------- MACOS specific config -------------- "
 if has("gui_macvim")
-    autocmd GUIEnter * set vb t_vb=
+    au GUIEnter * set vb t_vb=
 endif
 if has("macunix")
     set rtp+=$(brew --prefix)/opt/fzf
@@ -152,6 +148,9 @@ let g:NERDTreeIndicatorMapCustom = {
 
 
 " --------------- Plugin config ------------------------ "
+" Git gutter settings
+let g:gitgutter_max_signs = 500 " Default value. 
+
 let g:vimwiki_list = [{'path':'~/.vimwiki/',
       \ 'nested_syntaxes': { 'python':'python', 'c++':'cpp', 'c':'c', 'bash':'sh', 'html':'html','css':'css','java':'java'},
       \ }]
@@ -174,9 +173,9 @@ endfunction
 command! -nargs=* -bang NoteSearch call RipgrepNotes(<q-args>, <bang>0)
 
 
-"autocmd! FileType which_key
-"autocmd  FileType which_key set laststatus=0 noshowmode noruler
-"  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+"au! FileType which_key
+"au  FileType which_key set laststatus=0 noshowmode noruler
+"  \| au BufLeave <buffer> set laststatus=2 showmode ruler
 """""""""""""""""""" WHICH KEY CONFIG & KEYBINDNIGS ------------------------------------
 let mapleader = "\<Space>" " Defining space as our map leader. 
 call which_key#register('<Space>',"g:which_key_map")
@@ -192,11 +191,15 @@ let g:which_key_map.a = { 'name' : '+applications'}
 let g:which_key_map.b = { 'name' : '+buffer'}
 let g:which_key_map.c = { 'name' : '+comment'}
 let g:which_key_map.e = { 'name' : '+editor'}
+let g:which_key_map.e.t = { 'name' : '+toggles'}
 let g:which_key_map.f = { 'name' : '+file'}
 let g:which_key_map.g = { 'name' : '+git'}
 let g:which_key_map.n = { 'name' : '+notes'}
+let g:which_key_map.p = { 'name' : '+project'}
 let g:which_key_map.t = { 'name' : '+tab'}
 let g:which_key_map.w = { 'name' : '+window'}
+
+" ------ Keybindings and Dictionary stuff ------ "
 
 " Buffer control
 nnoremap <leader>bn :bn<CR>
@@ -205,51 +208,20 @@ nnoremap <leader>bp :bp<CR>
 let g:which_key_map.b.p = 'Previous buffer'
 nnoremap <leader>bd :bd<CR>
 let g:which_key_map.b.d = 'Delete buffer'
+nnoremap <leader>bo :Buffers<CR>
+let g:which_key_map.b.o = 'Open buffers'
 
 " ----  Wiki control
-" Unmapping shit we don't use or we're remapping.
-nmap <silent><unique> '.s:map_prefix.'d <Plug>VimwikiDeleteLink
-nmap <silent><unique> '.s:map_prefix.'t <Plug>VimwikiTabIndex
-nmap <silent><unique> '.s:map_prefix.'w <Plug>VimwikiIndex
-nmap <silent><unique> '.s:map_prefix.'s <Plug>VimwikiUISelect
-nmap <silent><unique> '.s:map_prefix.'i <Plug>VimwikiDiaryIndex
-nmap <silent><buffer> '.vimwiki#vars#get_global('map_prefix').'d <Plug>VimwikiDeleteLink
-nmap <silent><buffer> '.vimwiki#vars#get_global('map_prefix').'r <Plug>VimwikiRenameLink
 nnoremap <leader>nw :VimwikiIndex<CR> 
 nnoremap <leader>nt :VimwikiTabIndex<CR>
 nnoremap <leader>ns :NoteSearch<CR>
 nnoremap <leader>nf :Notes<CR>
 nnoremap <leader>nn :e ~/.vimwiki/todo.wiki<CR>
-autocmd Filetype vimwiki nnoremap <leader>nd :VimwikiDeleteLink<CR>
-autocmd Filetype vimwiki nnoremap <leader>nr :VimwikiRenameLink<CR>
-autocmd Filetype vimwiki nnoremap <leader>nh <Plug>Vimwiki2HTML
 let g:which_key_map.n.w = 'Open notes index'
 let g:which_key_map.n.t = 'Open notes index in tab'
 let g:which_key_map.n.s = 'Search notes'
-autocmd Filetype vimwiki let g:which_key_map.n.d = 'Delete note'
-autocmd Filetype vimwiki let g:which_key_map.n.r = 'Rename note'
 let g:which_key_map.n.f = 'Find note'
 let g:which_key_map.n.n = 'Open todo'
-
-"" Window navigation
-nnoremap <leader>wl <C-w><C-l>
-let g:which_key_map.w.l = 'Right window'
-nnoremap <leader>wh <C-w><C-h>
-let g:which_key_map.w.h = 'Left window'
-nnoremap <leader>wj <C-w><C-j>
-let g:which_key_map.w.j = 'Down window'
-nnoremap <leader>wk <C-w><C-k>
-let g:which_key_map.w.k = 'Up window'
-nnoremap <leader>ws <C-w><C-s>
-let g:which_key_map.w.s = 'Split horizontally'
-nnoremap <leader>wv <C-w><C-v>
-let g:which_key_map.w.v = 'Split vertically'
-nnoremap <leader>wd <C-w><C-q>
-let g:which_key_map.w.d = 'Delete window'
-nnoremap <leader>wr <C-w>R
-let g:which_key_map.w.r = 'Reverse windows'
-nnoremap <leader>wg :Windows<CR>
-let g:which_key_map.w.g = 'List windows'
 
 
 "" Tab control 
@@ -292,14 +264,22 @@ let g:which_key_map.f.e = 'Sudo reopen'
 "nnoremap <leader>gm :Gmerge<CR>
 "nnoremap <leader>gc :Gcommit<CR>
 
-" Git gutter settings
-let g:gitgutter_max_signs = 500 " Default value. 
-
+" -- Editor settings
 " Open the config
 nnoremap <leader>ec :e $MYVIMRC<CR>
-nnoremap <leader>eC :Colors<CR>
 let g:which_key_map.e.c = "Open config"
+" Open color selector
+nnoremap <leader>eC :Colors<CR>
 let g:which_key_map.e.C = "Select colorscheme"
+" Open mappings
+nnoremap <leader>em :Maps<CR>
+let g:which_key_map.e.m = "Open mappings"
+nnoremap <leader>ee :Commands<CR>
+let g:which_key_map.e.e = "Open commands"
+nnoremap <leader>eh :Helptags<CR>
+let g:which_key_map.e.h = "Open helptags"
+
+
 
 
 "" Application bindings 
@@ -316,6 +296,68 @@ let g:which_key_map.c['$'] = 'Comment to EOL'
 let g:which_key_map.c[' '] = 'Comment' 
 let g:which_key_map.c.c = 'Comment' 
 let g:which_key_map.c.u = 'Uncomment' 
+
+
+" ------ All au keymappings, for both context based keys or conflicting keymaps ------ "
+augroup VimwikiLeave
+  au!
+  au BufLeave ~/.vimwiki/* unlet g:which_key_map.n.d
+  au BufLeave ~/.vimwiki/* unlet g:which_key_map.n.r
+  au BufLeave ~/.vimwiki/* unlet g:which_key_map.n.h
+  au BufLeave ~/.vimwiki/* unlet g:which_key_map.n.H
+augroup END
+augroup VimwikiEnter
+  au!
+  au BufEnter ~/.vimwiki/* let g:which_key_map.n.d = 'Delete note'
+  au BufEnter ~/.vimwiki/* let g:which_key_map.n.r = 'Rename note'
+  au BufEnter ~/.vimwiki/* let g:which_key_map.n.h = 'Generate HTML'
+  au BufEnter ~/.vimwiki/* let g:which_key_map.n.H = 'Generate All HTML'
+augroup END
+augroup KeyMapping
+  au!
+  " ----- Vimwiki ----- "
+  " Clear vimwiki bindings "
+  au VimEnter * nunmap <leader>ws
+  au VimEnter * nunmap <leader>wi
+  au VimEnter * nunmap <leader>ww
+  au VimEnter * nunmap <leader>wt
+  au Filetype vimwiki mapclear <buffer>
+
+  " Rebind vimwiki's buffer bindings
+  au Filetype vimwiki nnoremap <silent><buffer><TAB> :VimwikiNextLink<CR>
+  au Filetype vimwiki nnoremap <silent><buffer><S-TAB> :VimwikiPrevLink<CR>
+  au Filetype vimwiki nmap <silent><buffer> <CR> <Plug>VimwikiFollowLink
+  au Filetype vimwiki nnoremap <silent><script><buffer> <Plug>VimwikiFollowLink :VimwikiFollowLink<CR>
+  au Filetype vimwiki nnoremap <silent><buffer><BS> :VimwikiGoBackLink<CR>
+  au Filetype vimwiki nnoremap <buffer><leader>nd :VimwikiDeleteLink<CR>
+  au Filetype vimwiki nnoremap <buffer><leader>nr :VimwikiRenameLink<CR>
+  au Filetype vimwiki nnoremap <buffer><leader>nh :Vimwiki2HTML<CR>
+  au Filetype vimwiki nnoremap <buffer><leader>nH :VimwikiAll2HTML<CR>
+  "au Filetype vimwiki let g:which_key_map.n.d = 'Delete note'
+  "au Filetype vimwiki let g:which_key_map.n.r = 'Rename note'
+  "au Filetype vimwiki let g:which_key_map.n.h = 'Generate HTML'
+  "au Filetype vimwiki let g:which_key_map.n.H = 'Generate All HTML'
+
+  " Window control "
+  au VimEnter * nnoremap <leader>wl <C-w><C-l>
+  au VimEnter * let g:which_key_map.w.l = 'Right window'
+  au VimEnter * nnoremap <leader>wh <C-w><C-h>
+  au VimEnter * let g:which_key_map.w.h = 'Left window'
+  au VimEnter * nnoremap <leader>wj <C-w><C-j>
+  au VimEnter * let g:which_key_map.w.j = 'Down window'
+  au VimEnter * nnoremap <leader>wk <C-w><C-k>
+  au VimEnter * let g:which_key_map.w.k = 'Up window'
+  au VimEnter * nnoremap <leader>ws <C-w><C-s>
+  au VimEnter * let g:which_key_map.w.s = 'Split horizontally'
+  au VimEnter * nnoremap <leader>wv <C-w><C-v>
+  au VimEnter * let g:which_key_map.w.v = 'Split vertically'
+  au VimEnter * nnoremap <leader>wd <C-w><C-q>
+  au VimEnter * let g:which_key_map.w.d = 'Delete window'
+  au VimEnter * nnoremap <leader>wr <C-w>R
+  au VimEnter * let g:which_key_map.w.r = 'Reverse windows'
+  au VimEnter * nnoremap <leader>wo :Windows<CR>
+  au VimEnter * let g:which_key_map.w.o = 'Open windows'
+augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -384,7 +426,7 @@ endfunction
 "nmap <leader>f  <Plug>(coc-format-selected)
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+au CursorHold * silent call CocActionAsync('highlight')
 
 " Using CocList
 " Show all diagnostics
