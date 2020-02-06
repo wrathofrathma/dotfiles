@@ -228,6 +228,7 @@ let g:which_key_map.e = { 'name' : '+editor'}
 let g:which_key_map.e.t = { 'name' : '+toggles'}
 let g:which_key_map.f = { 'name' : '+file'}
 let g:which_key_map.g = { 'name' : '+git'}
+let g:which_key_map.l = { 'lsp' : '+lsp' }
 let g:which_key_map.n = { 'name' : '+notes'}
 let g:which_key_map.p = { 'name' : '+project'}
 let g:which_key_map.s = { 'name' : '+session'}
