@@ -12,6 +12,15 @@
 
 ### Prerequisites for my .vimrc
 * vim-plug - vim plugin manager
+* powerline-fonts
+* ctags
+* ripgrep
+* fzf
+* bat
+* pip2 neovim
+* pip3 neovim
+* pip3 isort
+
 
 ## Terminal stack
 * kitty - gpu accelerated terminal
