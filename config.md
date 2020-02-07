@@ -23,7 +23,7 @@
 
 
 ## Terminal stack
-* kitty - gpu accelerated terminal
+* alacritty - gpu accelerated terminal
 * zsh - shell
 * tmux - preferred terminal multiplexer
 
