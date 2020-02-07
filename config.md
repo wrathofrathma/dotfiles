@@ -47,6 +47,11 @@
 ## Honorable Mentions
 * devdocs
 
+## My input method packages
+(AUR)
+ttf-nanum-2017-2
+ttf-nanumgothic_coding-2.5-1
+
 ## Configs
 * Regolith i3/gnome configs: https://github.com/regolith-linux/regolith-desktop/wiki/HowTo:-Use-i3-and-Gnome-without-Regolith
 * i3 config: https://github.com/wrathofrathma/dotfiles/blob/master/i3config
