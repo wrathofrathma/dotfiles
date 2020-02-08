@@ -68,7 +68,7 @@ Plug 'elzr/vim-json' " Json better highlighting
 Plug 'mattn/emmet-vim' " HTML Expansion using visual highlighting and vim commands.
 " Plug 'sheerun/vim-polyglot' " Polygot language pack. Loads things on demand
 Plug 'donRaphaco/neotex', { 'for' : 'tex' }  " Live preview for Latex
-Plug 'tpope/vim-dispatch' " Compiler
+"Plug 'tpope/vim-dispatch' " Compiler
 
 " Utility
 Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in functions.
@@ -319,7 +319,7 @@ nnoremap <silent><leader>ot :Todo<CR>
 let g:which_key_map.o.t = 'Open todo'
 nnoremap <silent><leader>ob :VimwikiDiaryIndex<CR>
 let g:which_key_map.o.b = 'Open blog index'
-nnoremap <silent><leader>on :VimwikiTabIndex<CR>
+nnoremap <silent><leader>on :VimwikiIndex<CR>
 let g:which_key_map.o.n = 'Open notes index'
 nnoremap <silent><leader>oN :VimwikiTabIndex<CR>
 let g:which_key_map.o.N = 'Open notes index in tab'
@@ -432,6 +432,8 @@ nnoremap <silent><leader>ets
 let g:which_key_map.e.t.s = "Toggle syntax highlighting"
 nnoremap <silent><leader>etm :set mouse=a<CR>
 let g:which_key_map.e.t.m = "Turn mouse on"
+nnoremap <silent><leader>eti :set inccommand=split<CR>
+let g:which_key_map.e.t.i = "View substitution preview"
 
 
 " LSP Settings 
