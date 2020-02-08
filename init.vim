@@ -319,7 +319,7 @@ nnoremap <silent><leader>ot :Todo<CR>
 let g:which_key_map.o.t = 'Open todo'
 nnoremap <silent><leader>ob :VimwikiDiaryIndex<CR>
 let g:which_key_map.o.b = 'Open blog index'
-nnoremap <silent><leader>on :VimwikiTabIndex<CR>
+nnoremap <silent><leader>on :VimwikiIndex<CR>
 let g:which_key_map.o.n = 'Open notes index'
 nnoremap <silent><leader>oN :VimwikiTabIndex<CR>
 let g:which_key_map.o.N = 'Open notes index in tab'
