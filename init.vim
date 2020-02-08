@@ -68,7 +68,7 @@ Plug 'elzr/vim-json' " Json better highlighting
 Plug 'mattn/emmet-vim' " HTML Expansion using visual highlighting and vim commands.
 " Plug 'sheerun/vim-polyglot' " Polygot language pack. Loads things on demand
 Plug 'donRaphaco/neotex', { 'for' : 'tex' }  " Live preview for Latex
-Plug 'tpope/vim-dispatch' " Compiler
+"Plug 'tpope/vim-dispatch' " Compiler
 
 " Utility
 Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in functions.
@@ -432,6 +432,8 @@ nnoremap <silent><leader>ets
 let g:which_key_map.e.t.s = "Toggle syntax highlighting"
 nnoremap <silent><leader>etm :set mouse=a<CR>
 let g:which_key_map.e.t.m = "Turn mouse on"
+nnoremap <silent><leader>eti :set inccommand=split<CR>
+let g:which_key_map.e.t.i = "View substitution preview"
 
 
 " LSP Settings 
