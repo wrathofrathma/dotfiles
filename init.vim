@@ -15,7 +15,8 @@
 "  5. pip3 install neovim
 "  6. pip2 install neovim
 "  7. pip install isort
-"  8. Optional: powerline fonts
+"  8. npm install -g flow
+"  9. Optional: powerline fonts
 "  The rest should auto-install when you open related files or do related tasks
 "
 " Run this to install the plugins
@@ -66,16 +67,16 @@ Plug 'calincru/peaksea.vim'
 Plug 'neoclide/coc.nvim', {'branch' : 'release', 'tag':'*','do':{->coc#util#install()}} "  Intellisense engine for neovim. Requires an LSP.
 Plug 'elzr/vim-json' " Json better highlighting
 Plug 'mattn/emmet-vim' " HTML Expansion using visual highlighting and vim commands.
-" Plug 'sheerun/vim-polyglot' " Polygot language pack. Loads things on demand
 Plug 'donRaphaco/neotex', { 'for' : 'tex' }  " Live preview for Latex
-"Plug 'tpope/vim-dispatch' " Compiler
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
 
 " Utility
 Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in functions.
 Plug 'vimwiki/vimwiki' " Personal wiki inside of vim. Currently being used for notes and todo mostly.
 call plug#end()
 
-let g:coc_global_extensions = ['coc-emoji', 'coc-prettier', 'coc-json', 'coc-python']
+let g:coc_global_extensions = ['coc-emoji', 'coc-prettier', 'coc-json', 'coc-python', 'coc-flow', 'coc-css', 'coc-html', 'coc-prettier', 'coc-emmet' ]
 
 " ---------------- Vim config stuff ------------------- "
 " ----- Bells and whistles ----- "

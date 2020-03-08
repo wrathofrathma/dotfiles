@@ -4,6 +4,19 @@
   "python.linting.flake8Enabled": true,
   "python.formatting.provider":"black",
   "coc.preferences.formatOnType":true,
-  "coc.preferences.formatOnSaveFiletypes": ["python"],
-  "suggest.autoTrigger": "trigger"
+  "coc.preferences.formatOnSaveFiletypes":[],
+  "suggest.autoTrigger": "trigger",
+  "flow.enable": true,
+  "flow.pathToFlow": "/usr/bin/flow",
+  "languageserver": {
+    "flow": {
+      "command": "flow",
+      "args": ["lsp"],
+      "filetypes": ["javascript", "javascriptreact"],
+      "initializationOptions": {},
+      "requireRootPattern": true,
+      "settings": {},
+      "rootPatterns": [".flowconfig"]
+    }
+  }
 }
