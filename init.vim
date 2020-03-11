@@ -98,6 +98,7 @@ set updatetime=100 "Relevant to the leader key menu popping up quickly.
 set splitright " This and splitbelow define split behavior. 
 set splitbelow
 set statusline^=%{coc#status()}
+set mouse=a
 
 " ----- Performance tuning ----- "
 " TODO - au grouping for our stuff. Maybe if we do that or clear a bunch of them from plugins we can improve performance
