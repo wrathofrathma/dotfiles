@@ -89,7 +89,7 @@ set novisualbell
 set encoding=utf8
 set ffs=unix,dos,mac
 set textwidth=160
-set cmdheight=2 " Change this if we need a bigger command buffer height
+set cmdheight=1 " Change this if we need a bigger command buffer height
 set signcolumn=yes " Always display signcolumns(mostly for git)
 set nocompatible
 set number
@@ -133,7 +133,7 @@ endif
 
 " --------------- Theme config ------------------------- "
 " Default Theme
-colorscheme meta5
+colorscheme ron 
 hi Normal guibg=None ctermbg=None
 hi NonText guibg=None ctermbg=None
 " ------------------------------------------------------- "
