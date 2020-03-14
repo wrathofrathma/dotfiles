@@ -368,8 +368,8 @@ nnoremap <silent><leader>ff :Files
 nnoremap <silent><leader>fs :Rg<CR>
 let g:which_key_map.f.s = 'Search files'
 let g:which_key_map.f.f = 'Find file'
-nnoremap <silent><leader>fS :w suda://%<CR> " Saves current file as sudo
-nnoremap <silent><leader>fe :e suda://%<CR> " Opens current file for sudo writing
+nnoremap <silent><leader>fS :w suda://%<CR>
+nnoremap <silent><leader>fe :e suda://%<CR>
 let g:which_key_map.f.S = 'Sudo save'
 let g:which_key_map.f.e = 'Sudo reopen'
 
