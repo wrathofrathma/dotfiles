@@ -1,0 +1,22 @@
+#!/bin/bash
+# Assumptions
+# $1 is our path to project directory
+
+# Check if we passed a path. TODO - Just use current directory if no path
+if [ $# != 1 ]; then
+  exit
+fi
+
+# Make sure directory & parents exist
+mkdir -p "$1"
+
+# Create the template using create-react-app
+npx create-react-app "$1"
+
+cd "$1"
+# Add electron
+yarn add electron electron-builder --dev
+
+# Add dev tools
+yarn add wait-on concurrently --dev
+yarn add electron-is-dev
