@@ -60,8 +60,12 @@ Plug 'mhartington/oceanic-next' " Oceanic theme
 Plug 'morhetz/gruvbox' " Gruvbox theme
 Plug 'fcpg/vim-orbital' " orbital theme
 Plug 'christophermca/meta5'
+Plug 'vim-scripts/Zenburn'
 Plug 'dracula/vim'
 Plug 'calincru/peaksea.vim'
+" Syntax highlighters....
+"Plug 'vim-python/python-syntax'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 " Language Packs
 Plug 'neoclide/coc.nvim', {'branch' : 'release', 'tag':'*','do':{->coc#util#install()}} "  Intellisense engine for neovim. Requires an LSP.
@@ -76,7 +80,7 @@ Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in
 Plug 'vimwiki/vimwiki' " Personal wiki inside of vim. Currently being used for notes and todo mostly.
 call plug#end()
 
-let g:coc_global_extensions = ['coc-emoji', 'coc-prettier', 'coc-json', 'coc-python', 'coc-flow', 'coc-css', 'coc-html', 'coc-prettier', 'coc-emmet' ]
+let g:coc_global_extensions = ['coc-emoji', 'coc-prettier', 'coc-json', 'coc-python', 'coc-flow', 'coc-css', 'coc-html', 'coc-prettier', 'coc-emmet', 'coc-pairs', 'coc-snippets' ]
 
 " ---------------- Vim config stuff ------------------- "
 " ----- Bells and whistles ----- "
@@ -133,10 +137,47 @@ if has("macunix")
 endif
 
 " --------------- Theme config ------------------------- "
-" Default Theme
-colorscheme ron 
-hi Normal guibg=None ctermbg=None
+" I really enjoy the meta5 colorscheme with a few minor tweaks and the semshi highlighter
+" Tweaks include
+" - Transparent background
+" - Class/function definitions pop
+" - More readable/brighter strings & comments(needed for transparent bg)
+colorscheme meta5 
+set background=dark
+let g:airline_theme='zenburn'
+let g:zenburn_high_Contrast=1
+hi Normal guibg=None ctermbg=None ctermfg=254 guifg=Grey89
+"hi Normal ctermfg=254 guifg=Grey89
 hi NonText guibg=None ctermbg=None
+hi Function ctermfg=226
+hi Comment ctermfg=145
+hi String ctermfg=159
+
+"hi Comment        guifg=#808080 ctermfg=244
+"hi Todo           guifg=#00ffff guibg=#606060 gui=bold ctermfg=6 ctermbg=239 cterm=bold
+"hi Boolean        guifg=#87ff5f gui=bold ctermfg=119 cterm=bold
+"hi Conditional    guifg=#5fdfff ctermfg=81
+"hi String         guifg=#0087df ctermfg=32
+"hi Character      guifg=#0087ff ctermfg=33
+"hi Identifier     guifg=#00afff ctermfg=39
+"hi Function       guifg=#df8700 ctermfg=172
+"hi Type           guifg=#87dfff gui=NONE ctermfg=117
+"hi Typedef        guifg=#87dfff gui=bold ctermfg=117 cterm=bold
+"hi StorageClass   guifg=#87ff5f ctermfg=119
+"hi Structure      guifg=#01dfdf ctermfg=44
+"hi Label          guifg=#5f87ff ctermfg=69
+"hi Statement      guifg=#5fdfff gui=NONE ctermfg=81
+"hi Repeat         guifg=#afdfff gui=bold ctermfg=153 cterm=bold
+"hi Exception      guifg=#afdfff gui=bold ctermfg=153 cterm=bold
+"hi Operator       guifg=#8787ff ctermfg=105
+"hi Keyword        guifg=#dfffff guibg=NONE gui=bold ctermfg=195 ctermbg=NONE  cterm=bold
+"hi Constant       guifg=#af5fff ctermfg=195
+"hi Number         guifg=#5fdf5f ctermfg=77
+"hi Special        guifg=#5fdf5f gui=bold ctermfg=77 cterm=bold
+"hi PreCondit      guifg=#005faf ctermfg=25
+"hi PreProc        guifg=#00afff ctermfg=39
+"hi Define         guifg=#ff8700 ctermfg=208
+
 " ------------------------------------------------------- "
 
 let g:NERDTreeIndicatorMapCustom = {
