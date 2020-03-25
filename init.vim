@@ -63,6 +63,9 @@ Plug 'christophermca/meta5'
 Plug 'vim-scripts/Zenburn'
 Plug 'dracula/vim'
 Plug 'calincru/peaksea.vim'
+Plug 'romainl/Apprentice'
+Plug 'joshdick/onedark.vim'
+Plug 'w0ng/vim-hybrid'
 " Syntax highlighters....
 "Plug 'vim-python/python-syntax'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
@@ -136,47 +139,6 @@ if has("macunix")
     let g:python3_host_prog = '/usr/local/bin/python3'
 endif
 
-" --------------- Theme config ------------------------- "
-" I really enjoy the meta5 colorscheme with a few minor tweaks and the semshi highlighter
-" Tweaks include
-" - Transparent background
-" - Class/function definitions pop
-" - More readable/brighter strings & comments(needed for transparent bg)
-colorscheme meta5 
-set background=dark
-let g:airline_theme='zenburn'
-let g:zenburn_high_Contrast=1
-hi Normal guibg=None ctermbg=None ctermfg=254 guifg=Grey89
-"hi Normal ctermfg=254 guifg=Grey89
-hi NonText guibg=None ctermbg=None
-hi Function ctermfg=226
-hi Comment ctermfg=145
-hi String ctermfg=159
-
-"hi Comment        guifg=#808080 ctermfg=244
-"hi Todo           guifg=#00ffff guibg=#606060 gui=bold ctermfg=6 ctermbg=239 cterm=bold
-"hi Boolean        guifg=#87ff5f gui=bold ctermfg=119 cterm=bold
-"hi Conditional    guifg=#5fdfff ctermfg=81
-"hi String         guifg=#0087df ctermfg=32
-"hi Character      guifg=#0087ff ctermfg=33
-"hi Identifier     guifg=#00afff ctermfg=39
-"hi Function       guifg=#df8700 ctermfg=172
-"hi Type           guifg=#87dfff gui=NONE ctermfg=117
-"hi Typedef        guifg=#87dfff gui=bold ctermfg=117 cterm=bold
-"hi StorageClass   guifg=#87ff5f ctermfg=119
-"hi Structure      guifg=#01dfdf ctermfg=44
-"hi Label          guifg=#5f87ff ctermfg=69
-"hi Statement      guifg=#5fdfff gui=NONE ctermfg=81
-"hi Repeat         guifg=#afdfff gui=bold ctermfg=153 cterm=bold
-"hi Exception      guifg=#afdfff gui=bold ctermfg=153 cterm=bold
-"hi Operator       guifg=#8787ff ctermfg=105
-"hi Keyword        guifg=#dfffff guibg=NONE gui=bold ctermfg=195 ctermbg=NONE  cterm=bold
-"hi Constant       guifg=#af5fff ctermfg=195
-"hi Number         guifg=#5fdf5f ctermfg=77
-"hi Special        guifg=#5fdf5f gui=bold ctermfg=77 cterm=bold
-"hi PreCondit      guifg=#005faf ctermfg=25
-"hi PreProc        guifg=#00afff ctermfg=39
-"hi Define         guifg=#ff8700 ctermfg=208
 
 " ------------------------------------------------------- "
 
@@ -446,6 +408,9 @@ let g:which_key_map.g.w = "Write/add"
 " Open the config
 nnoremap <silent><leader>ec :e $MYVIMRC<CR>
 let g:which_key_map.e.c = "Open config"
+" Reload config
+nnoremap <silent><leader>er :source $MYVIMRC<CR>
+let g:which_key_map.e.r = "Reload config"
 " Open color selector
 nnoremap <silent><leader>eC :Colors<CR>
 let g:which_key_map.e.C = "Select colorscheme"
@@ -604,3 +569,35 @@ augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" --------------- Theme config ------------------------- "
+let g:airline_theme='deus'
+colorscheme dracula
+
+
+function CustomHighlights()
+  hi semshiLocal           ctermfg=209 guifg=#ff875f
+  hi semshiGlobal          ctermfg=214 guifg=#ffaf00
+  hi semshiImported        ctermfg=79  guifg=#ffaf00 cterm=bold gui=bold
+  hi semshiParameter       ctermfg=75  guifg=#5fafff
+  hi semshiParameterUnused ctermfg=117 guifg=#87d7ff cterm=underline gui=underline
+  hi semshiFree            ctermfg=218 guifg=#ffafd7
+  hi semshiBuiltin         ctermfg=207 guifg=#ff5fff
+  hi semshiAttribute       ctermfg=49  guifg=#00ffaf
+  hi semshiSelf            ctermfg=249 guifg=#b2b2b2
+  hi semshiUnresolved      ctermfg=226 guifg=#ffff00 cterm=underline gui=underline
+  hi semshiSelected        ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
+
+  hi semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
+  hi semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
+endfunction
+
+autocmd Filetype python call CustomHighlights()
+autocmd ColorScheme * call CustomHighlights()
+hi Normal guibg=None ctermbg=None ctermfg=254 guifg=Grey89
+hi NonText guibg=None ctermbg=None
+hi SignColumn ctermbg=None ctermfg=141
+"hi Function ctermfg=226
+hi Comment ctermfg=145
+"hi String ctermfg=159
+" --------------------------------
