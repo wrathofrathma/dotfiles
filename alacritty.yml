@@ -44,7 +44,7 @@ font:
     family: Hack
     style: Bold Italic
 
-  size: 11 #9.5
+  size: 13 #9.5
 
   offset:
     x: 0
@@ -59,7 +59,7 @@ draw_bold_text_with_bright_colors: true
 # Oxide colors
 colors:
   primary:
-    background: '0x1f2124'
+    background: '0x000000'
     foreground: '0xc0c5ce'
     bright_foreground: '0xf3f4f5'
 

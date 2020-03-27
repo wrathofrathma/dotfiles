@@ -32,7 +32,7 @@ Plug 'airblade/vim-gitgutter' " Git diff browser in the gutter
 "Plug 'rbong/vim-flog' " Another frontend for git plugin
 
 """ File & Buffer Management Plugins
-Plug 'scrooloose/nerdtree' " Tree navigation
+Plug 'preservim/nerdtree' " Tree navigation
 Plug 'xuyuanp/nerdtree-git-plugin' " Git status in the nerdtree doesn't seem to be working.
 Plug 'junegunn/fzf' " Fuzzy finder support
 Plug 'junegunn/fzf.vim' " vim frontend to fzf
@@ -77,6 +77,7 @@ Plug 'mattn/emmet-vim' " HTML Expansion using visual highlighting and vim comman
 Plug 'donRaphaco/neotex', { 'for' : 'tex' }  " Live preview for Latex
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'calviken/vim-gdscript3'
 
 " Utility
 Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in functions.
@@ -261,7 +262,7 @@ let g:which_key_map.b = { 'name' : '+buffer'}
 let g:which_key_map.c = { 'name' : '+comment'}
 let g:which_key_map.e = { 'name' : '+editor'}
 let g:which_key_map.e.t = { 'name' : '+toggles'}
-let g:which_key_map.f = { 'name' : '+file'}
+let g:which_key_map.f = { 'name' : '+file/find'}
 let g:which_key_map.g = { 'name' : '+git'}
 let g:which_key_map.n = { 'name' : '+notes' }
 let g:which_key_map.l = { 'name' : '+lsp' }
@@ -375,9 +376,14 @@ nnoremap <silent><leader>fS :w suda://%<CR>
 nnoremap <silent><leader>fe :e suda://%<CR>
 let g:which_key_map.f.S = 'Sudo save'
 let g:which_key_map.f.e = 'Sudo reopen'
+nnoremap <silent><leader>fr :Rg<CR>
+let g:which_key_map.f.r = 'Recursive content search'
+nnoremap <silent><leader>fg :Rg TODO<CR>
+let g:which_key_map.f.g = 'Find TODO notes'
 
 
-" Git Control with Fugitive
+
+" Git Control with Fugitive & Gv
 nnoremap <silent><leader>gv :Commits<CR>
 let g:which_key_map.g.v = "View commits"
 nnoremap <silent><leader>gV :BCommits<CR>
@@ -402,6 +408,8 @@ nnoremap <silent><leader>gm :Gmerge<CR>
 let g:which_key_map.g.m = "Merge"
 nnoremap <silent><leader>gw :Gwrite<CR>
 let g:which_key_map.g.w = "Write/add"
+nnoremap <silent><leader>gd :Gvdiffsplit<CR>
+let g:which_key_map.g.d = "View diff split"
 
 
 " -- Editor settings
@@ -571,6 +579,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " --------------- Theme config ------------------------- "
+"set termguicolors
 let g:airline_theme='deus'
 colorscheme dracula
 
