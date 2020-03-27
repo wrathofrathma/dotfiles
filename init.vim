@@ -43,6 +43,7 @@ Plug 'vim-airline/vim-airline' " Fancy status bar
 Plug 'vim-airline/vim-airline-themes'
 Plug 'liuchengxu/vim-which-key' " Pop up guidef or available hotkeys.
 Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
 Plug 'mhinz/vim-startify'
 Plug 'mattn/calendar-vim'
 
@@ -69,6 +70,7 @@ Plug 'w0ng/vim-hybrid'
 " Syntax highlighters....
 "Plug 'vim-python/python-syntax'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+"Plug 'octol/vim-cpp-enhanced-highlight'
 
 " Language Packs
 Plug 'neoclide/coc.nvim', {'branch' : 'release', 'tag':'*','do':{->coc#util#install()}} "  Intellisense engine for neovim. Requires an LSP.
@@ -84,7 +86,7 @@ Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in
 Plug 'vimwiki/vimwiki' " Personal wiki inside of vim. Currently being used for notes and todo mostly.
 call plug#end()
 
-let g:coc_global_extensions = ['coc-emoji', 'coc-prettier', 'coc-json', 'coc-python', 'coc-flow', 'coc-css', 'coc-html', 'coc-prettier', 'coc-emmet', 'coc-pairs', 'coc-snippets' ]
+let g:coc_global_extensions = ['coc-emoji', 'coc-prettier', 'coc-json', 'coc-python', 'coc-flow', 'coc-css', 'coc-html', 'coc-prettier', 'coc-emmet', 'coc-pairs', 'coc-snippets', 'coc-clangd' ]
 
 " ---------------- Vim config stuff ------------------- "
 " ----- Bells and whistles ----- "
@@ -172,6 +174,10 @@ let g:NERDTreeIndicatorMapCustom = {
 " --------------- Plugin config ------------------------ "
 let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts = 1
+let g:vista#renderer#enable_icon = 1
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+"let g:vista_default_executive = "fzf"
+let g:vista_stay_on_open = 0
 "let g:startify_custom_header = [ 
 "      \ '   _____                  __                        ',
 "      \ '  / ___/____ _____  _____/ /___  ______ ________  __',
@@ -227,7 +233,7 @@ function! ToggleCalendar()
 endfunction
 
 " Version of notes with preview window
-command! -bang Notes call fzf#vim#files('~/.vimwiki/',{'options':['--preview','~/.local/share/nvim/plugged/fzf.vim/bin/preview.sh {}']},<bang>0)
+command! -bang Notes call fzf#vim#files('~/.vimwiki/',{'options':['--preview','~/.local/share/nvim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 
 " Uses Rg on the vimwiki notes directory
 function! RipgrepNotes(query, fullscreen)
@@ -378,8 +384,10 @@ let g:which_key_map.f.S = 'Sudo save'
 let g:which_key_map.f.e = 'Sudo reopen'
 nnoremap <silent><leader>fr :Rg<CR>
 let g:which_key_map.f.r = 'Recursive content search'
-nnoremap <silent><leader>fg :Rg TODO<CR>
-let g:which_key_map.f.g = 'Find TODO notes'
+nnoremap <silent><leader>fn :Rg TODO<CR>
+let g:which_key_map.f.n = 'Find TODO notes'
+nnoremap <silent><leader>fg :Vista finder ctags<CR>
+let g:which_key_map.f.g = 'Find tags'
 
 
 
@@ -477,23 +485,33 @@ let g:which_key_map.c.u = 'Uncomment'
 
 
 " ------ All au keymappings, for both context based keys or conflicting keymaps ------ "
-augroup PythonLeave
-  au!
-  au BufLeave *py unlet g:which_key_map.l.r
-  au BufLeave *py unlet g:which_key_map.l.s
-  au BufLeave *py unlet g:which_key_map.l.l
-  au BufLeave *py unlet g:which_key_map.l.v
-  au BufLeave *py unlet g:which_key_map.l.V
-  au BufLeave *py unlet g:which_key_map.l.t.l
-augroup END
-augroup PythonEnter
-  au!
+function CleanLinter()
+  """This is a very ghetto solution to BufLeave *.py not triggering when we switch to our tagbar buffer"""
+  if has_key(g:which_key_map.l, 'r')
+    au BufLeave *.py unlet g:which_key_map.l.r
+    au BufLeave *.py unlet g:which_key_map.l.s
+    au BufLeave *.py unlet g:which_key_map.l.l
+    au BufLeave *.py unlet g:which_key_map.l.v
+    au BufLeave *.py unlet g:which_key_map.l.V
+    au BufLeave *.py unlet g:which_key_map.l.t.l
+    
+  endif
+endfunction
+function SetupLinter()
   au BufEnter *py let g:which_key_map.l.r = "Run in terminal"
   au BufEnter *py let g:which_key_map.l.s = "Sort imports"
   au BufEnter *py let g:which_key_map.l.t.l = "Toggle linting"
   au BufEnter *py let g:which_key_map.l.l = "Run linting"
   au BufEnter *py let g:which_key_map.l.v = "View errors"
   au BufEnter *py let g:which_key_map.l.V = "View linter report"
+endfunction
+augroup PythonLeave
+  au!
+  call CleanLinter()
+augroup END
+augroup PythonEnter
+  au!
+  call SetupLinter()
 augroup END
 augroup WikiLeave
   au!
