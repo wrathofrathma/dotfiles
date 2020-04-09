@@ -22,6 +22,7 @@
 " Run this to install the plugins
 " :PlugInstall
 "
+" TODO - Build out vimspector for python
 " ----------------- Plugins ------------------------- "
 call plug#begin(stdpath('data').'/plugged')
 """ Version Control Software Plugins 
@@ -80,13 +81,14 @@ Plug 'donRaphaco/neotex', { 'for' : 'tex' }  " Live preview for Latex
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'calviken/vim-gdscript3'
+Plug 'puremourning/vimspector'
 
 " Utility
 Plug 'tpope/vim-repeat' " Allows for repeating a command some number of times in functions.
 Plug 'vimwiki/vimwiki' " Personal wiki inside of vim. Currently being used for notes and todo mostly.
 call plug#end()
 
-let g:coc_global_extensions = ['coc-emoji', 'coc-prettier', 'coc-json', 'coc-python', 'coc-flow', 'coc-css', 'coc-html', 'coc-prettier', 'coc-emmet', 'coc-pairs', 'coc-snippets', 'coc-clangd' ]
+let g:coc_global_extensions = ['coc-emoji', 'coc-prettier', 'coc-json', 'coc-python', 'coc-flow', 'coc-css', 'coc-html', 'coc-prettier', 'coc-emmet', 'coc-pairs', 'coc-snippets', 'coc-clangd', 'coc-java' ]
 
 " ---------------- Vim config stuff ------------------- "
 " ----- Bells and whistles ----- "
@@ -172,6 +174,7 @@ let g:NERDTreeIndicatorMapCustom = {
 
 
 " --------------- Plugin config ------------------------ "
+let g:vimspector_enable_mappings = 'HUMAN'
 let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts = 1
 let g:vista#renderer#enable_icon = 1
@@ -625,6 +628,6 @@ hi Normal guibg=None ctermbg=None ctermfg=254 guifg=Grey89
 hi NonText guibg=None ctermbg=None
 hi SignColumn ctermbg=None ctermfg=141
 "hi Function ctermfg=226
-hi Comment ctermfg=145
+hi Comment ctermfg=111
 "hi String ctermfg=159
 " --------------------------------
