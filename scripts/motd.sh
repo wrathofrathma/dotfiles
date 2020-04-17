@@ -15,7 +15,7 @@ echo ""
 echo "Load Averages: ${one}, ${five}, ${fifteen} (1, 5, 15 min)" | lolcat -f
 echo "Number of users logged in: $(users | wc -w)" | lolcat -f
 echo "Pool Status" | lolcat -f
-echo "$(zpool list)" | lolcat -f
-echo "Disk Use: " | lolcat -f
+# echo "$(zpool list)" | lolcat -f
+# echo "Disk Use: " | lolcat -f
 #echo "$(zfs list | grep -v 'zdata/docker/')" | lolcat -f
-echo "$(zfs list zdata/tank zdata/docker zdata/http/repo zdata/tank/media zdata/tank/torrents)" | lolcat -f 
+# echo "$(zfs list zdata/tank zdata/docker zdata/http/repo zdata/tank/media zdata/tank/torrents)" | lolcat -f
