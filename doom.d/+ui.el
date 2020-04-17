@@ -38,8 +38,11 @@
   (set-popup-rule! "^\\*Ilist" :size 0.10 :side 'right :quit nil)
   )
 
-;; autoamtically update terminal theme - I think this already happens
 (add-hook 'doom-load-theme-hook 'theme-magic-from-emacs)
+(use-package! theme-magic
+  :config
+  (theme-magic-export-theme-mode)
+  )
 
 ;; There's a bug with modeline in insert mode for orgdocs
 ;; (custom-set-faces! '(doom-modeline-evil-insert-state :weight bold :foreground "#339CDB"))
