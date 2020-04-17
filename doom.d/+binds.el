@@ -3,8 +3,8 @@
 
 
 ;; Changes normal mode s/S behavior from the evil-snipe to vanilla vim delete & insert
-;; (after! evil-snipe
-;;   (evil-snipe-mode -1))
+(after! evil-snipe
+  (evil-snipe-mode -1))
 
 (delete-selection-mode 1)                         ; Replace selection when inserting text
 

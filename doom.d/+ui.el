@@ -6,7 +6,7 @@
 ;; Font
 (setq doom-font (font-spec :family "hack" :size 15))
 ;; Theme settings
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-outrun-electric)
 
 
 
