@@ -3,7 +3,7 @@
 
 
 ;;; Org Mode configs
-(setq org-directory "/opt/config/org/"                      ; let's put files here
+(setq org-directory "~/.sanctuary/org/"                      ; let's put files here
       org-use-property-inheritance t              ; it's convenient to have properties inherited
       org-log-done 'time                          ; having the time a item is done sounds convininet
       org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
