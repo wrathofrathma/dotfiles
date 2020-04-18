@@ -1,6 +1,21 @@
 ;;; ~/.doom.d/ui.el -*- lexical-binding: t; -*-
 ;;; Don't remove above. Makes it run slightly faster
 
+;; Lord henrick's orders
+;; Testing out solaire mode for henrick
+(after! solaire-mode
+  (setq solaire-mode-remap-fringe nil)
+  (add-to-list 'solaire-mode-remap-alist '((fringe solaire-fringe-face) . t))
+  (defadvice! redraw-after-solaire-mode (&rest _)
+    :after #'solaire-mode
+    (if solaire-mode (force-mode-line-update)))
+
+  (remove-hook 'focus-in-hook #'solaire-mode-reset)
+  (remove-hook! '(doom-load-theme-hook doom-reload-hook) #'solaire-mode-reset)
+  (remove-hook 'solaire-mode-hook #'+doom-disable-fringes-in-minibuffer-h)
+  (advice-remove #'which-key--show-buffer-side-window #'+doom--no-fringes-in-which-key-buffer-a)
+  (remove-hook! '(minibuffer-setup-hook window-configuration-change-hook) #'+doom-disable-fringes-in-minibuffer-h))
+
 ;; My visual settings changes.
 ;;; Common visual settings
 ;; Font
