@@ -4,10 +4,31 @@
 ;; My visual settings changes.
 ;;; Common visual settings
 ;; Font
-(setq doom-font (font-spec :family "hack" :size 15))
+(setq doom-font (font-spec :family "hack" :size 16))
 ;; Theme settings
 (setq doom-theme 'doom-outrun-electric)
 
+;;;; Testing zone
+;; TODO - Make this steal the theme colors and apply them in the same way theme-magic does. Then hook it into doom-load-theme-hook
+(after! vterm
+  (set-face-foreground 'vterm-color-black "#090819") ;; 0
+  (set-face-foreground 'vterm-color-red "#e61f44") ;; 1
+  (set-face-foreground 'vterm-color-green "#5e6a90") ;; 2
+  (set-face-foreground 'vterm-color-yellow "#ffd400") ;; 3
+  (set-face-foreground 'vterm-color-blue "#ff2afc") ;; 4
+  (set-face-foreground 'vterm-color-magenta "#3b4167") ;; 5
+  (set-face-foreground 'vterm-color-cyan "#42c6ff") ;; 6
+  (set-face-foreground 'vterm-color-white "#f2f3f7") ;; 7
+
+  (set-face-background 'vterm-color-black "#ff5798") ;; 8 ;; Needs work
+  (set-face-background 'vterm-color-red "#e61f44") ;; 9
+  (set-face-background 'vterm-color-green "#5e6a90") ;; 10
+  (set-face-background 'vterm-color-yellow "#ffd400") ;; 11
+  (set-face-background 'vterm-color-blue "#ff2afc") ;; 12
+  (set-face-background 'vterm-color-magenta "#3b4167") ;; 13
+  (set-face-background 'vterm-color-cyan "#42c6ff") ;; 14
+  (set-face-background 'vterm-color-white "#f2f3f7") ;; 15
+  )
 
 
 ;;; Toggle settings
