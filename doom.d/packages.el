@@ -59,9 +59,9 @@
   :pin "6cf1943ad7")
 
 ;; tabnine deep learning autocomplete
-(package! company-tabnine ; tab9 autocomplete
-  :recipe (:host github :repo "TommyX12/company-tabnine"
-           :files ("company-tabnine.el" "fetch-binaries.sh")) :pin "e986a4ad0d")
+;; (package! company-tabnine ; tab9 autocomplete
+;;   :recipe (:host github :repo "TommyX12/company-tabnine"
+;;            :files ("company-tabnine.el" "fetch-binaries.sh")) :pin "e986a4ad0d")
 
 (package! prettify-utils ; simplify messing with prettify-mode
   :recipe (:host github :repo "Ilazki/prettify-utils.el") :pin "8b783d316c")
@@ -90,3 +90,7 @@
 (package! org-web-tools)
 
 ;(package! ob-session-async)
+
+(package! org-ref)
+
+;; (package! org-download)

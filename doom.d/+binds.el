@@ -9,7 +9,7 @@
 (delete-selection-mode 1)                         ; Replace selection when inserting text
 
 ;; Makes which-key more responsive
-(setq which-key-idle-delay 0.3)
+(setq which-key-idle-delay 0.2)
 
 (map! :leader
   (:prefix "b"

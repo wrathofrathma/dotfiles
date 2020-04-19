@@ -3,12 +3,50 @@
 
 
 ;;; Org Mode configs
-(setq org-directory "~/.sanctuary/org/"                      ; let's put files here
+(setq org-directory "~/.sanctuary/org/"           ; Root org directory.
       org-use-property-inheritance t              ; it's convenient to have properties inherited
       org-log-done 'time                          ; having the time a item is done sounds convininet
       org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
       ;; org-export-in-background t                  ; run export processes in external emacs process
       org-catch-invisible-edits 'smart)           ; try not to accidently do weird stuff in invisible regions
+
+(after! org-download
+  (add-hook! 'dired-mode-hook 'org-download-enable))
+
+;; (use-package! deft
+;;   (setq deft-directory org-directory))
+
+(after! org
+  (use-package! deft
+    :custom
+    (deft-recursive t)
+    (deft-use-filter-string-for-filename t)
+    (deft-default-extension "org")
+    (deft-directory org-directory))
+
+  (use-package! org-download
+    :bind
+    (:map org-mode-map
+      (("s-Y" . org-download-screenshot)
+       ("s-y" . org.download-yank)))
+    )
+  )
+
+
+
+;; Publishing/exporting behavior
+;; (setq org-publish-project-alist
+;;       '(
+;;         ("org-home"                                                       ;; "Project name", more accuractly a variable for this block
+;;          :base-directory "~/.sanctuary/org"                                    ;; Project root
+;;          :recursive t                                                     ;; Recursively apply rules to the base-directory
+;;          :publishing-directory "~/.sanctuary/org/exports" ;; Output directory
+;;          :base-extension "org"                                            ;; File extension(s) to consider. No dot.
+;;         )
+
+;;         ("org" :components ("org-home"))
+;;         )
+;;       )
 
 
 ;;; Lord henrick's orders
