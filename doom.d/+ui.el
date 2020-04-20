@@ -192,3 +192,6 @@
 
 (add-hook 'window-size-change-functions #'set-appropriate-splash)
 (add-hook 'doom-load-theme-hook #'set-appropriate-splash)
+;; Rainbow delimiters everywhere!
+(add-hook! 'prog-mode-hook #'rainbow-delimiters-mode)
+(add-hook! 'text-mode-hook #'rainbow-delimiters-mode)
