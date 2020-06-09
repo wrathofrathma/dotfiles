@@ -20,12 +20,6 @@ window:
 
   startup_mode: Windowed
 
-scrolling:
-  history: 2500
-  multiplier: 3
-  auto_scroll: false
-
-tabspaces: 4
 
 font:
   normal:

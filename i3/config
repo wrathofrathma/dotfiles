@@ -165,7 +165,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 bindsym $mod+c exec gnome-control-center
 # Autostart section 
-exec /opt/dotfiles/autostart.sh
+#exec /opt/dotfiles/autostart.sh
 #exec --no-startup-id /usr/bin/picom -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='vlc'" --focus-exclude "class_g*='bookworm'" --focus-exclude "name~='Youtube'" --focus-exclude "name*='YouTube - Mozilla Firefox'"
 
 #hide_edge_borders vertical

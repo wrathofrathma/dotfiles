@@ -94,3 +94,11 @@
 (package! org-ref)
 
 ;; (package! org-download)
+
+(package! restclient)
+
+(package! ob-restclient)
+
+(package! vue-mode)
+
+(package! nvm)

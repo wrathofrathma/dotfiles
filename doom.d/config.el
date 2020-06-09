@@ -25,6 +25,7 @@
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
 
+(add-hook 'vue-mode-hook #'lsp!)
 
 ;; Update all pinned packages function
 (defun +doom/update-all-pinned-package-form ()
