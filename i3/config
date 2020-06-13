@@ -44,6 +44,7 @@ bindsym $mod+space exec rofi -combi-modi drun#window -theme arthur -font "hack 1
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
+bindsym $mod+Tab focus down
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up

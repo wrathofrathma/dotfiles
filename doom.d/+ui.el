@@ -22,7 +22,7 @@
 (setq doom-font (font-spec :family "hack" :size 16))
 ;; Theme settings
 ;; (setq doom-theme 'doom-outrun-electric)
-(setq doom-theme 'doom-dark+)
+(setq doom-theme 'doom-dracula)
 
 ;;;; Testing zone
 ;; TODO - Make this steal the theme colors and apply them in the same way theme-magic does. Then hook it into doom-load-theme-hook

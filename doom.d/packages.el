@@ -101,4 +101,6 @@
 
 (package! vue-mode)
 
+(package! prettier-js)
+
 (package! nvm)

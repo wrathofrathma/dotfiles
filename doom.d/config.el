@@ -25,7 +25,37 @@
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
 
-(add-hook 'vue-mode-hook #'lsp!)
+;; (defun wm-hook ()
+;; ;;   "Hooks for web mode."
+;;   (setq web-mode-markup-indent-offset 2)
+;;   (setq web-mode-code-indent-offset 2)
+;;   (setq web-mode-css-indent-offset 2)
+;;   (setq vue-html-tab-width 2)
+;;   (set (make-local-variable 'tab-width) 2)
+;;   (setq js-indent-level 2)
+;;   (flycheck-mode t)
+;;   (rainbow-mode)
+;;   )
+;; (add-hook 'web-mode-hook 'wm-hook)
+
+(use-package! vue-mode
+  :mode "\\.vue\\'"
+  :hook (vue-mode . prettier-js-mode)
+  :config
+;;   (setq mmm-submode-decoration-level 0)
+  (add-hook 'vue-mode-hook
+            (lambda ()
+              (set-face-background 'mmm-default-submode-face nil)))
+  (add-hook 'vue-mode-hook #'lsp!)
+  (setq js-indent-level 2))
+  ;; (setq prettier-js-args '("--parser vue")))
+;; (add-to-list 'auto-mode-alist '("\\.vue$" . vue-mode))
+;; (use-package! lsp-mode
+;;   :custom
+;;   (lsp-vetur-format-default-formatter-css "none")
+;;   (lsp-vetur-format-default-formatter-html "none")
+;;   (lsp-vetur-format-default-formatter-js "none")
+;;   (lsp-vetur-validation-template nil))
 
 ;; Update all pinned packages function
 (defun +doom/update-all-pinned-package-form ()
@@ -66,3 +96,40 @@
 
 ;;wttrin default city set to autolocate based on ip
 (setq wttrin-default-cities '(""))
+
+;; (add-hook 'vue-mode-hook #'lsp!)
+;; ;; VueJS setup by reddit user pbgc
+;; ;; (flycheck-add-mode 'javascript-eslint 'vue-mode)
+;; (defun vuejs-custom ()
+;;   (setq vue-html-tab-width 2)
+;;   (flycheck-mode t)
+;;   (rainbow-mode)
+;;   (global-set-key (kbd "C-c C-l") 'vue-mode-reparse)
+;;   (global-set-key (kbd "C-c C-e") 'vue-mode-edit-indirect-at-point)
+;;   (add-to-list 'write-file-functions 'delete-trailing-whitespace)
+;;   (turn-on-diff-hl-mode))
+
+;; (add-hook 'vue-mode-hook 'vuejs-custom)
+
+
+;; (defun js-custom ()
+;;   (flycheck-mode t)
+;;   (company-mode)
+;;   (set (make-local-variable 'tab-width) 2)
+;;   (setq js-indent-level 2))
+
+;; (add-hook 'js-mode-hook 'js-custom)
+
+;; (setq lsp-prefer-flymake :none)
+
+;; (setq lsp-ui-doc-enable nil)
+;; (setq lsp-ui-imenu-enable t)
+;; (setq lsp-ui-peek-enable t)
+;; (setq lsp-ui-sideline-enable t)
+;; ;; (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+;; (define-key lsp-ui-mode-map (kbd "M--") #'lsp-ui-peek-find-references)
+
+;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+(add-hook 'mmm-mode-hook
+          (lambda ()
+            (set-face-background 'mmm-default-submode-face nil)))
