@@ -1,0 +1,22 @@
+{
+  "python.jediEnabled":false,
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": false,
+  "python.formatting.provider":"black",
+  "coc.preferences.formatOnType":true,
+  "coc.preferences.formatOnSaveFiletypes":[],
+  "suggest.autoTrigger": "always",
+  "flow.enable": true,
+  "flow.pathToFlow": "/usr/bin/flow",
+  "languageserver": {
+    "flow": {
+      "command": "flow",
+      "args": ["lsp"],
+      "filetypes": ["javascript", "javascriptreact","typescript"],
+      "initializationOptions": {},
+      "requireRootPattern": true,
+      "settings": {},
+      "rootPatterns": [".flowconfig"]
+    }
+  }
+}
