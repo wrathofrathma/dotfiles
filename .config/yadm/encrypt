@@ -1,2 +1,4 @@
 .ssh/hslinux*
-.ssh/sanctuary*
+.ssh/sanctuary
+.ssh/config
+.authinfo

@@ -130,7 +130,7 @@
 (setcar (nthcdr 0 +doom-dashboard-functions) #'+fl/doom-banner)
 
 (setq +fl/splashcii-query "cat")
-(setq +fl/splash-image "/opt/dotfiles/deprecated/scripts/motd.png")
+(setq +fl/splash-image "~/.doom.d/themes/splash.png")
 
 ;; Remove window decorations
 (setq default-frame-alist
