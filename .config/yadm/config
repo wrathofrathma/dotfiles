@@ -1,0 +1,5 @@
+[yadm]
+	cipher = openssl
+	openssl-ciphername = aes-256-cbc
+	openssl-old = false
+	openssl-program = /opt/homebrew/opt/openssl@3/bin/openssl
