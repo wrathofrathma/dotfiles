@@ -11,7 +11,7 @@ if [ "$system_type" = "Darwin" ]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # Add it to our path for the rest of the script
-  export PATH="$PATH:/opt/homebrew/bin"
+  PATH="$PATH:/opt/homebrew/bin"
 
 
   # Install packages
