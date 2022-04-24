@@ -92,4 +92,4 @@ function fish_prompt --description 'Write out the prompt; do not replace this. I
 end
 
 # Configure FZF keybindings to be compatible with MacOS
-fzf_configure_bindings --directory=\ef --variables=\cv --git_log=\el --git_status=\es --processes=\ep
+fzf_configure_bindings --directory=\ef --git_log=\el --git_status=\es --processes=\ep
