@@ -22,7 +22,7 @@ else
   ZSH_TMUX_AUTOSTART="false"
 fi
 
-ZSH_THEME="dracula"
+ZSH_THEME="robbyrussell"
 DISABLE_AUTO_UPDATE="true"
 
 plugins=(git-extras sudo tmux fzf)
