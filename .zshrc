@@ -25,7 +25,7 @@ fi
 ZSH_THEME="robbyrussell"
 DISABLE_AUTO_UPDATE="true"
 
-plugins=(git-extras sudo tmux fzf)
+plugins=(git-extras sudo tmux fzf fd ripgrep python zsh-syntax-highlighting zsh-autosuggestions)
 
 export FZF_BASE=/opt/homebrew/Cellar/fzf/0.29.0
 

@@ -90,3 +90,6 @@ function fish_prompt --description 'Write out the prompt; do not replace this. I
     printf "%b" (string join "\n" (vterm_old_fish_prompt))
     vterm_prompt_end
 end
+
+# Configure FZF keybindings to be compatible with MacOS
+fzf_configure_bindings --directory=\ef --variables=\cv --git_log=\el --git_status=\es --processes=\ep
