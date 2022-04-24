@@ -6,8 +6,12 @@ system_type=$(uname -s)
 if [ "$system_type" = "Darwin" ]; then
   echo "Configuring MacOS"
 
+  # Install homebrew
   echo "Installing Homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # Add it to our path for the rest of the script
+  export PATH="$PATH:/opt/homebrew/bin"
 
 
   # Install packages
