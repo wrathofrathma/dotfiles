@@ -126,11 +126,19 @@ if [ "$system_type" = "Darwin" ]; then
       # TODO - Modify /etc/sudoers to allow scripting additions to run on startup
       # https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
   fi
+  # Decrypt stuff
+  /opt/homebrew/bin/yadm decrypt
+
+  # Change YADM remote to ssh
+  /opt/homebrew/bin/yadm remote set-url origin git@github.com:wrathofrathma/dotfiles.git
 fi
+
+
 
 # Debian-based specific
 
 # Arch linux specific
+
 
 # Setup simple-bar
 
