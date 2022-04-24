@@ -1,0 +1,141 @@
+#!/bin/bash
+
+system_type=$(uname -s)
+
+# MacOS specific configuration
+if [ "$system_type" = "Darwin" ]; then
+  echo "Configuring MacOS"
+
+  echo "Installing Homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+
+  # Install packages
+  macos_packages=(
+      # Casks
+      'firefox-developer-edition'
+      'google-chrome'
+      'steam'
+      'spotify'
+      'streamlabs-obs'
+      'ubersicht'
+      'visual-studio-code'
+      'vlc'
+      'postman'
+      'godot'
+      'font-hack'
+      'blender'
+      'alacritty'
+      'discord-canary'
+
+      # Formulae
+      'bat'
+      'unp'
+      'diff-so-fancy'
+      'cowsay'
+      'emacs-mac'
+      'eslint'
+      'chafa'
+      'ca-certificates'
+      'exa'
+      'exiftool'
+      'fd'
+      'figlet'
+      'fish'
+      'fisher'
+      'fzf'
+      'ghostscript'
+      'gcc'
+      'go'
+      'gotop'
+      'gtop'
+      'gzip'
+      'htop'
+      'imagemagick'
+      'ipython'
+      'lolcat'
+      'lsusb'
+      'ncurses'
+      'neofetch'
+      'neovim'
+      'nmap'
+  #    'node'
+      'openssl@1.1'
+      'openssl@3'
+      'pandoc'
+      'p7zip'
+      'zsh'
+      'yarn'
+      'yadm'
+      'wget'
+      'tmux'
+      'sqlite'
+      'skhd'
+      'ripgrep'
+      'qemu'
+      'python@3.10'
+      'prettyping'
+      'yabai'
+      'android-platform-tools'
+      'spotifyd'
+      'oha'
+  )
+
+  # Set homebrew SSH key so we don't get rate limited
+  # Tap into the brew repositories we need
+  brew_taps=(
+      'khanhas/tap'
+      'koekeishiya/formulae'
+      'railwaycat/emacsmacport'
+      'sidneys/homebrew'
+      'cmacrae/formulae'
+  )
+
+  for tap in "${brew_taps[@]}"; do
+    brew tap $tap
+  done
+
+  # Install the packages
+  for package in "${macos_packages[@]}"; do
+    brew install $package
+  done
+
+  # Install emacs prereqs
+  brew install git ripgrep
+  brew install coreutils fd
+  # Install clang
+  xcode-select --install
+  # Install emacs because it needs special flags
+  brew install railwaycat/emacsmacport/emacs-mac --with-no-title-bars --with-emacs-sexy-icon --with-mac-metal --with-modules --with-imagemagick
+  # Copy that Emacs.app to /Applications/Emacs.app
+  # TODO - Maybe rm -rf this before we copy
+  cp -R /opt/homebrew/Cellar/emacs-mac/**/Emacs.app /Applications/
+
+  # Setup Yabai if SIP is disabled
+  #  echo "$(csrutil status)"
+  # If SIP is disabled
+  # install scripting additions
+  # enable yabai
+  # Modify sudoers to allow yabai scripting to run
+  # https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
+fi
+
+# Debian-based specific
+
+# Arch linux specific
+
+# Setup simple-bar
+
+# Setup NVM
+
+# Install Doom Emacs
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
+
+# Neovim / vim configuration
+
+# Bootstrap Fish shell
+
+# Bootstrap zsh
+
+# Bootstrap tmux
