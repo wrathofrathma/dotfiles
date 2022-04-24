@@ -147,10 +147,12 @@ fi
 # Install Doom Emacs
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom install
+~/.emacs.d/bin/doom sync
 
 # Neovim / vim configuration
 
 # Bootstrap Fish shell
+# TODO - Setup fish to be dfeault shell
 
 # Bootstrap zsh
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
