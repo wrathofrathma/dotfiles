@@ -6,6 +6,9 @@ system_type=$(uname -s)
 if [ "$system_type" = "Darwin" ]; then
   echo "Configuring MacOS"
 
+  # Update xcode
+  softwareupdate --all --install --force
+
   # Install homebrew
   echo "Installing Homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -33,7 +36,6 @@ if [ "$system_type" = "Darwin" ]; then
       'unp'
       'diff-so-fancy'
       'cowsay'
-      'emacs-mac'
       'eslint'
       'chafa'
       'ca-certificates'
@@ -59,7 +61,7 @@ if [ "$system_type" = "Darwin" ]; then
       'neofetch'
       'neovim'
       'nmap'
-  #    'node'
+      'node'
       'openssl@1.1'
       'openssl@3'
       'pandoc'
@@ -89,6 +91,8 @@ if [ "$system_type" = "Darwin" ]; then
       'railwaycat/emacsmacport'
       'sidneys/homebrew'
       'cmacrae/formulae'
+      'homebrew/cask-versions'
+      'homebrew/cask-fonts'
   )
 
   for tap in "${brew_taps[@]}"; do
@@ -107,16 +111,21 @@ if [ "$system_type" = "Darwin" ]; then
   # Install emacs because it needs special flags
   /opt/homebrew/bin/brew install railwaycat/emacsmacport/emacs-mac --with-no-title-bars --with-emacs-sexy-icon --with-mac-metal --with-modules --with-imagemagick
   # Copy that Emacs.app to /Applications/Emacs.app
-  # TODO - Maybe rm -rf this before we copy
+  rm -rf /Applications/Emacs.app
   cp -R /opt/homebrew/Cellar/emacs-mac/**/Emacs.app /Applications/
 
   # Setup Yabai if SIP is disabled
-  #  echo "$(csrutil status)"
-  # If SIP is disabled
-  # install scripting additions
-  # enable yabai
-  # Modify sudoers to allow yabai scripting to run
-  # https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
+  if [ "$(csrutil status)" == "System Integrity Protection status: enabled." ]; then
+      echo "SIP currently enabled. To install Yabai, disable SIP https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection"
+  else
+      echo "Installing Yabai"
+      /opt/homebrew/bin/brew install koekeishiya/formulae/yabai
+      sudo /opt/homebrew/bin/yabai --load-sa
+      brew services start yabai
+
+      # TODO - Modify /etc/sudoers to allow scripting additions to run on startup
+      # https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
+  fi
 fi
 
 # Debian-based specific
