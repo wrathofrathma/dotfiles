@@ -10,10 +10,6 @@ if [ "$system_type" = "Darwin" ]; then
   echo "Installing Homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  # Add it to our path for the rest of the script
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-
-
   # Install packages
   macos_packages=(
       # Casks
@@ -96,21 +92,20 @@ if [ "$system_type" = "Darwin" ]; then
   )
 
   for tap in "${brew_taps[@]}"; do
-    brew tap $tap
+    /opt/homebrew/bin/brew tap $tap
   done
 
   # Install the packages
   for package in "${macos_packages[@]}"; do
-    brew install $package
+    /opt/homebrew/bin/brew install $package
   done
 
   # Install emacs prereqs
-  brew install git ripgrep
-  brew install coreutils fd
+  /opt/homebrew/bin/brew install git ripgrep coreutils fd
   # Install clang
   xcode-select --install
   # Install emacs because it needs special flags
-  brew install railwaycat/emacsmacport/emacs-mac --with-no-title-bars --with-emacs-sexy-icon --with-mac-metal --with-modules --with-imagemagick
+  /opt/homebrew/bin/brew install railwaycat/emacsmacport/emacs-mac --with-no-title-bars --with-emacs-sexy-icon --with-mac-metal --with-modules --with-imagemagick
   # Copy that Emacs.app to /Applications/Emacs.app
   # TODO - Maybe rm -rf this before we copy
   cp -R /opt/homebrew/Cellar/emacs-mac/**/Emacs.app /Applications/
