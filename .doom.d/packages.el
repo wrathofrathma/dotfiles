@@ -64,6 +64,9 @@
 ;; Allows exporting using more markdown features, like the ones used by github.
 (package! ox-gfm)
 
+;; Allows exporting to ox-hugo format markdown
+(package! ox-hugo)
+
 ;; Puppet mode
 ;;
 (package! puppet-mode)

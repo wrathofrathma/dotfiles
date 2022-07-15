@@ -152,3 +152,5 @@
 (setq auth-sources '("~/.authinfo"))
 
 (use-package! lsp-tailwindcss)
+
+(use-package! ox-hugo)
