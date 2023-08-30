@@ -73,3 +73,7 @@
 
 ;; Tailwindcss LSP support
 (package! lsp-tailwindcss :recipe (:host github :repo "merrickluo/lsp-tailwindcss"))
+
+;; Roam graph
+(unpin! org-roam)
+(package! org-roam-ui)

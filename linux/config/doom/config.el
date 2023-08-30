@@ -90,7 +90,7 @@
 
 ;; UI Stuff
 (display-time-mode 1)
-(display-battery-mode 1)
+;;(display-battery-mode 1)
 (setq doom-font (font-spec :family "hack" :size 14))
 
 ;; Keybinds
@@ -130,7 +130,7 @@
 (setcar (nthcdr 0 +doom-dashboard-functions) #'+fl/doom-banner)
 
 (setq +fl/splashcii-query "cat")
-(setq +fl/splash-image "/Users/rathma/.doom.d/themes/splash.png")
+(setq +fl/splash-image "/home/rathma/.config/doom/themes/splash.png")
 
 ;; Remove window decorations
 (setq default-frame-alist
@@ -145,7 +145,7 @@
 (add-hook! 'org-mode-hook (company-mode -1))
 
 ;; Allow for tiling with yabai
-(menu-bar-mode t)
+;;(menu-bar-mode t)
 
 (doom/set-frame-opacity 0.90)
 
